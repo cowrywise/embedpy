@@ -15,13 +15,14 @@ class APIClient(object):
 
     def __init__(self, client_id=None, client_secret=None, base_url=None, api_version=None, timeout=None):
 
-        if None in (client_id, os.environ.get("CLIENT_ID")):
-            raise APICredentialsError("Provide client ID or set in environment variable.")
-        if None in (client_secret or os.environ.GET('CLIENT_SECRET')):
+        self.client_id = client_id or os.getenv("CLIENT_ID")
+        if self.client_id is None:
+            raise APICredentialsError("Please provide client ID or set in environment variable.")
+
+        self.client_secret = client_secret or os.getenv('CLIENT_SECRET')
+        if self.client_secret is None:
             raise APICredentialsError("Provide client secret or set in environment variable.")
 
-        self.client_id = client_id
-        self.client_secret = client_secret
         self.api_version = api_version or self.API_VERSION
         self.base_url = base_url or self.SANDBOX_BASE_API_URI
         self.timeout = timeout or self.TIMEOUT
