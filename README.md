@@ -18,8 +18,8 @@ $ pip install embed-python
 ## Usage
 To get started, signup for developer credentials on [app.cowrywise.com](https://app.cowrywise.com). Once you signup, you can retrieve
 you client_id and client_secret keys from the developer dashboard. Set your credentials in environment variables. 
-```
 
+```
 # Environment variables
 CLIENT_ID = CWRY-substitute-yours-here
 CLIENT_SECRET = CWRY-SECRET-substitute-yours-here
