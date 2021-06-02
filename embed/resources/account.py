@@ -11,10 +11,9 @@ class Account(APIResponse):
         super(Account, self).__init__()
         self.api_host = f"{api_host}/api/{version}/"
         self.token = token
-        self._headers = {
-            "Authorization": f"Bearer {self.token}",
-            "Content-Type": "application/json",
-        }
+        self._headers.update({
+            "Authorization": f"Bearer {self.token}"
+        })
 
     def create(self, first_name, last_name, email):
         method = "POST"
@@ -35,15 +34,14 @@ class Account(APIResponse):
         url = self.api_host + f"accounts/{account_id}"
         return self.get_essential_details(method, url)
 
-    def get_portfolio(self, account_id, asset_id):
+    def get_portfolio(self, account_id):
         """
         Get the portfolio that belongs to an account.
         The asset_id comes from calling get_all_assets() of Asset
         """
         method = "GET"
         url = self.api_host + f"accounts/{account_id}/portfolio"
-        payload = json.dumps({"asset_id": asset_id})
-        return self.get_essential_details(method, url, payload)
+        return self.get_essential_details(method, url)
 
     def update_address(
         self, account_id, street, lga, area_code, city, state, country="NG"

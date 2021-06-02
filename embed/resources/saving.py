@@ -11,10 +11,9 @@ class Saving(APIResponse):
         super(Saving, self).__init__()
         self.api_host = f"{api_host}/api/{version}/"
         self.token = token
-        self._headers = {
-            "Authorization": f"Bearer {self.token}",
-            "Content-Type": "application/json",
-        }
+        self._headers.update({
+            "Authorization": f"Bearer {self.token}"
+        })
 
     def create_savings(self, account_id, days, interest_enabled, currency_code="NGN"):
         method = "POST"

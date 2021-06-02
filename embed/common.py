@@ -1,7 +1,7 @@
 import json
 import requests
 from embed.errors import APIError, APIConnectionError
-
+from embed import __version__
 
 class HTTPClient(object):
     def __init__(self, verify_ssl_certs=True):
@@ -21,7 +21,10 @@ class APIResponse(HTTPClient):
     def __init__(self, response=None, status=None):
         self._response = response
         self._status = status
-        self._headers = {}
+        self._headers = {
+            "User-Agent": f"Cowrywise/embed-python-{__version__}",
+            "Content-Type": "application/json"
+        }
         super(APIResponse, self).__init__()
 
     def get_essential_details(self, method, url, payload=None):
@@ -46,8 +49,8 @@ class APIResponse(HTTPClient):
                     timeout=self.TIMEOUT,
                     **self.kwargs,
                 )
-                # print(result.request.headers)
-                # print(result.request.url)
+                print(result.request.headers)
+                print(result.request.url)
             except TypeError as _exc:
                 raise APIError(f"Error encountered: {_exc}")
 

@@ -15,9 +15,9 @@ class Token(APIResponse):
         self.token_url = f"{self.base_url}/o/token/"
 
         self.grant_type = "client_credentials"
-        self.request_headers = {"Content-Type": "application/x-www-form-urlencoded"}
+        self._headers.update({"Content-Type": "application/x-www-form-urlencoded"})
 
     def get_access_token(self):
         payload = f"grant_type={self.grant_type}&client_id={self.client_id}&client_secret={self.client_secret}"
-        response, status = self.request("POST", self.token_url, self.request_headers, post_data=payload)
+        response, status = self.request("POST", self.token_url, self._headers, post_data=payload)
         return response.get("access_token"), status

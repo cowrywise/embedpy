@@ -11,10 +11,9 @@ class Investment(APIResponse):
         super(Investment, self).__init__()
         self.api_host = f"{api_host}/api/{version}/"
         self.token = token
-        self._headers = {
-            "Authorization": f"Bearer {self.token}",
-            "Content-Type": "application/json",
-        }
+        self._headers.update({
+            "Authorization": f"Bearer {self.token}"
+        })
 
     def get_investments(self):
         method = "GET"

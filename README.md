@@ -9,7 +9,7 @@ See the [Embed API docs](developer.cowrywise.com).
 Clone the repo or install the library via pypi.
 
 ```
-$ pip install embed-python
+$ pip install embed-python (not yet)
 ```
 
 ### Requirements
