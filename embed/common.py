@@ -46,8 +46,8 @@ class APIResponse(HTTPClient):
                     timeout=self.TIMEOUT,
                     **self.kwargs,
                 )
-                print(result.request.headers)
-                print(result.request.url)
+                # print(result.request.headers)
+                # print(result.request.url)
             except TypeError as _exc:
                 raise APIError(f"Error encountered: {_exc}")
 

@@ -24,7 +24,11 @@ api_client = APIClient(client_id, client_secret)
 api_client.accounts.get_accounts()
 
 # Get Assets: Get all available assets to invest in
-api_client.accounts.get_assets()
+api_client.assets.get_assets()
+
+# Get Investments: Get all investments made
+api_client.investments.get_investments()
+
 ```
 
 

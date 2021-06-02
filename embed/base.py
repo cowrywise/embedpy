@@ -1,7 +1,11 @@
 import os
 from embed.errors import APICredentialsError
-from embed.accounts import Account
-from embed.token import Token
+from embed.resources.account import Account
+from embed.resources.asset import Asset
+from embed.resources.investment import Investment
+from embed.resources.index import Index
+from embed.resources.saving import Saving
+from embed.resources.token import Token
 
 
 class APIClient(object):
@@ -35,3 +39,19 @@ class APIClient(object):
     @property
     def accounts(self):
         return Account(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def assets(self):
+        return Asset(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def investments(self):
+        return Investment(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def indexes(self):
+        return Index(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def savings(self):
+        return Saving(self.base_url, self.access_token, self.api_version)
