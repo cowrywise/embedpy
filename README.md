@@ -30,19 +30,21 @@ Alternatively, you could use them to initialize the api client instance directly
 from embed import APIClient
 api_client = APIClient(client_id, client_secret)
 
-# Get Accounts: Get accounts associated with this credentials
+# Get investment accounts associated with this credentials
 api_client.accounts.get_accounts()
 
-# Get Assets: Get all available assets to invest in
+# Get all available assets to invest in
 api_client.assets.get_assets()
 
-# Get Indexes: Get all available indexes to invest in
+# Get all available indexes to invest in
 api_client.indexes.get_indexes()
 
-# Get Investments: Get all investments made
+# Get all investments made
 api_client.investments.get_investments()
-
 ```
+
+
+
 
 
 

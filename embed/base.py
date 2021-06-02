@@ -10,10 +10,16 @@ from embed.resources.token import Token
 
 class APIClient(object):
     """
-    Initiates connection to the API
+    This is the main entry point to the Cowrywise
+    Embed API.
+
+    An instance of this class gives direct access to all
+    the resources exposed by this api.
+
+    Full API docs available at https://developers.cowrywise.com
     """
 
-    SANDBOX_BASE_API_URI = 'https://sandbox.cowrywise.com'
+    BASE_API_URI = 'https://sandbox.cowrywise.com'
     API_VERSION = "v1"
     TIMEOUT = 40
 
@@ -28,7 +34,7 @@ class APIClient(object):
             raise APICredentialsError("Provide client secret or set in environment variable.")
 
         self.api_version = api_version or self.API_VERSION
-        self.base_url = base_url or self.SANDBOX_BASE_API_URI
+        self.base_url = base_url or self.BASE_API_URI
         self.timeout = timeout or self.TIMEOUT
 
     @property
