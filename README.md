@@ -24,7 +24,7 @@ you client_id and client_secret keys from the developer dashboard. Set your cred
 CLIENT_ID = CWRY-substitute-yours-here
 CLIENT_SECRET = CWRY-SECRET-substitute-yours-here
 ```
-Alternatively, you could use them to initialize the api client instance directly, after you import the APIClient.
+Alternatively, you could use them to initialize an Embed API Client instance directly.
 
 ```
 from embed import APIClient
