@@ -6,6 +6,10 @@ from embed.resources.investment import Investment
 from embed.resources.index import Index
 from embed.resources.saving import Saving
 from embed.resources.token import Token
+from embed.resources.trade import Trade
+from embed.resources.transaction import Transaction
+from embed.resources.price import Price
+from embed.resources.wallet import Wallet
 
 
 class APIClient(object):
@@ -19,19 +23,30 @@ class APIClient(object):
     Full API docs available at https://developers.cowrywise.com
     """
 
-    BASE_API_URI = 'https://sandbox.cowrywise.com'
+    BASE_API_URI = "https://sandbox.cowrywise.com"
     API_VERSION = "v1"
     TIMEOUT = 40
 
-    def __init__(self, client_id=None, client_secret=None, base_url=None, api_version=None, timeout=None):
+    def __init__(
+        self,
+        client_id=None,
+        client_secret=None,
+        base_url=None,
+        api_version=None,
+        timeout=None,
+    ):
 
         self.client_id = client_id or os.getenv("CLIENT_ID")
         if self.client_id is None:
-            raise APICredentialsError("Please provide client ID or set in environment variable.")
+            raise APICredentialsError(
+                "Please provide client ID or set in environment variable."
+            )
 
-        self.client_secret = client_secret or os.getenv('CLIENT_SECRET')
+        self.client_secret = client_secret or os.getenv("CLIENT_SECRET")
         if self.client_secret is None:
-            raise APICredentialsError("Provide client secret or set in environment variable.")
+            raise APICredentialsError(
+                "Provide client secret or set in environment variable."
+            )
 
         self.api_version = api_version or self.API_VERSION
         self.base_url = base_url or self.BASE_API_URI
@@ -39,7 +54,9 @@ class APIClient(object):
 
     @property
     def access_token(self):
-        access_token, _ = Token(self.client_id, self.client_secret, self.base_url).get_access_token()
+        access_token, _ = Token(
+            self.client_id, self.client_secret, self.base_url
+        ).get_access_token()
         return access_token
 
     @property
@@ -61,3 +78,21 @@ class APIClient(object):
     @property
     def savings(self):
         return Saving(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def trades(self):
+        return Trade(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def transactions(self):
+        return Transaction(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def prices(self):
+        return Price(self.base_url, self.access_token, self.api_version)
+
+    @property
+    def wallets(self):
+        return Wallet(self.base_url, self.access_token, self.api_version)
+
+

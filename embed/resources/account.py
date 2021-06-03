@@ -15,7 +15,7 @@ class Account(APIResponse):
             "Authorization": f"Bearer {self.token}"
         })
 
-    def create(self, first_name, last_name, email):
+    def create_account(self, first_name, last_name, email):
         method = "POST"
         url = self.api_host + "accounts"
 

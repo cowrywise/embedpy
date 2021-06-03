@@ -3,6 +3,7 @@ import requests
 from embed.errors import APIError, APIConnectionError
 from embed import __version__
 
+
 class HTTPClient(object):
     def __init__(self, verify_ssl_certs=True):
         self._verify_ssl_certs = verify_ssl_certs
@@ -23,7 +24,7 @@ class APIResponse(HTTPClient):
         self._status = status
         self._headers = {
             "User-Agent": f"Cowrywise/embed-python-{__version__}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
         super(APIResponse, self).__init__()
 
