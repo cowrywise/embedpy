@@ -10,9 +10,9 @@ class Price(APIResponse):
         super(Price, self).__init__()
         self.api_host = f"{api_host}/api/{version}/"
         self.token = token
-        self._headers = {
-            "Authorization": f"Bearer {self.token}",
-        }
+        self._headers.update({
+            "Authorization": f"Bearer {self.token}"
+        })
 
     def get_price_history(self, asset_id, from_date, to_date):
         """

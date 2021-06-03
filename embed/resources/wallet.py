@@ -11,9 +11,9 @@ class Wallet(APIResponse):
         super(Wallet, self).__init__()
         self.api_host = f"{api_host}/api/{version}/"
         self.token = token
-        self._headers = {
-            "Authorization": f"Bearer {self.token}",
-        }
+        self._headers.update({
+            "Authorization": f"Bearer {self.token}"
+        })
 
     def get_wallets(self):
         method = "GET"
