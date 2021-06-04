@@ -28,18 +28,21 @@ Alternatively, you could use them to initialize an Embed API Client instance dir
 
 ```
 from embed import Client
-client = Client(client_id, client_secret)
 
+# Create an instance of the Embed Client with your credentials
+client = Client(client_id, client_secret)
+```
+
+```
 # Create investment account for your customer
 client.accounts.create_account(
    first_name= "Mansa",
    last_name= "Musa",
    email= "mans_not_hot@gmaili.com
 )
-
-# Get all investment accounts
-client.accounts.get_accounts()
-
+```
+```
+# You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
 client.assets.get_assets()
 
