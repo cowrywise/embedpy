@@ -13,23 +13,26 @@ $ pip install embed-python (not yet)
 ```
 
 ### Requirements
-- Python3+
+- Python3.8+
 
 ## Usage
 To get started, signup for developer credentials on [app.cowrywise.com](https://app.cowrywise.com). Once you signup, you can retrieve
 you client_id and client_secret keys from the developer dashboard. Set your credentials in environment variables. 
 
 ```
-# Environment variables
+# Set environment variables
 CLIENT_ID = CWRY-substitute-yours-here
 CLIENT_SECRET = CWRY-SECRET-substitute-yours-here
+
+# Create an instance of the Embed Client
+from embed import Client
+client = Client()
 ```
-Alternatively, you could use them to initialize an Embed API Client instance directly.
+
+Alternatively, initialize the Embed Client with your credentials.
 
 ```
 from embed import Client
-
-# Create an instance of the Embed Client with your credentials
 client = Client(client_id, client_secret)
 ```
 
@@ -52,8 +55,18 @@ client.investments.create_investment(
   amount=50000, #kobo
   asset_code="AST-FUND-1655862279",
 )
+```
 
 ```
+# Get a user's investment portfolio
+client.accounts.get_portfolio('8ddfb5ea9fe440f9a7d086b7c8f14abd')
+```
+
+# Contributing
+We welcome contribution from everyone. Before submitting a pull request, kindly ensure:
+- [ ] Necessary tests for the code changes requested are added
+- [ ]  Code is formatted according to PEP3
+- [ ] There is clear commit messages
 
 
 
