@@ -1,5 +1,5 @@
 from embed.common import APIResponse
-from embed.errors import APICredentialsError
+from embed.errors import CredentialsError, ServerError
 
 
 class Token(APIResponse):
@@ -23,7 +23,9 @@ class Token(APIResponse):
         response, status = self.request("POST", self.token_url, self._headers, post_data=payload)
         if response is None:
             if status >= 500:
-                raise APICredentialsError("Server error. Please contact support.")
+                raise ServerError(f"Server error. Please contact support. Error: {status}.")
             else:
-                raise APICredentialsError("Unable to authenticate with client credentials.")
+                raise CredentialsError(f"Unable to authenticate with client credentials. Error {status}.")
+        if status == 401:
+            raise CredentialsError(f"Unable to authenticate with client credentials. Error {status}.")
         return response.get("access_token"), status

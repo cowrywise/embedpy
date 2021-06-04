@@ -1,23 +1,19 @@
 from requests import ConnectionError, RequestException
 
 
-class Error(RequestException):
+class EmbedError(Exception):
     pass
 
 
-class APIError(Error):
+class CredentialsError(EmbedError):
     pass
 
 
-class APICredentialsError(Error):
+class ServerError(EmbedError):
     pass
 
 
-class APIConnectionError(Error, ConnectionError):
-    pass
-
-
-class ValidationError(Error):
+class EmbedConnectionError(ConnectionError, RequestException):
     pass
 
 

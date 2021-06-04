@@ -1,6 +1,6 @@
 import json
 import requests
-from embed.errors import APIError, APIConnectionError
+from embed.errors import EmbedError, EmbedConnectionError
 from embed import __version__
 
 
@@ -50,10 +50,10 @@ class APIResponse(HTTPClient):
                     timeout=self.TIMEOUT,
                     **self.kwargs,
                 )
-                print(result.request.headers)
-                print(result.request.url)
+                #print(result.request.headers)
+                #print(result.request.url)
             except TypeError as _exc:
-                raise APIError(f"Error encountered: {_exc}")
+                raise EmbedError(f"Error encountered: {_exc}")
 
             try:
                 self._content = (
@@ -77,7 +77,7 @@ class APIResponse(HTTPClient):
                 err += " with error message %s" % (str(exc),)
             else:
                 err += " with no error message"
-        raise APIConnectionError(f"(Network error: {err})")
+        raise EmbedConnectionError(f"(Network error: {err})")
 
     @property
     def response(self):

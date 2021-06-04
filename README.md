@@ -31,20 +31,24 @@ from embed import Client
 client = Client(client_id, client_secret)
 
 # Create investment account for your customer
-client.Accounts.create_account({
-   "first_name": "Mansa",
-   "last_name: "Musa",
-   "email": "mans_not_hot@gmaili.com,
-})
+client.accounts.create_account(
+   first_name= "Mansa",
+   last_name= "Musa",
+   email= "mans_not_hot@gmaili.com
+)
 
 # Get all investment accounts
-client.Accounts.get_accounts()
+client.accounts.get_accounts()
 
 # Get all available assets to invest in
-client.Assets.get_assets()
+client.assets.get_assets()
 
-# Get all available indexes to invest in
-client.Indexes.get_indexes()
+# Make an invest for your customer
+client.investments.create_investment(
+  account_id="8ddfb5ea9fe440f9a7d086b7c8f14abd",
+  amount=50000, #kobo
+  asset_code="AST-FUND-1655862279",
+)
 
 ```
 
