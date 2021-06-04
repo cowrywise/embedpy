@@ -27,20 +27,25 @@ CLIENT_SECRET = CWRY-SECRET-substitute-yours-here
 Alternatively, you could use them to initialize an Embed API Client instance directly.
 
 ```
-from embed import APIClient
-api_client = APIClient(client_id, client_secret)
+from embed import Client
+client = Client(client_id, client_secret)
 
-# Get investment accounts associated with this credentials
-api_client.accounts.get_accounts()
+# Create investment account for your customer
+client.Accounts.create_account({
+   "first_name": "Mansa",
+   "last_name: "Musa",
+   "email": "mans_not_hot@gmaili.com,
+})
+
+# Get all investment accounts
+client.Accounts.get_accounts()
 
 # Get all available assets to invest in
-api_client.assets.get_assets()
+client.Assets.get_assets()
 
 # Get all available indexes to invest in
-api_client.indexes.get_indexes()
+client.Indexes.get_indexes()
 
-# Get all investments made
-api_client.investments.get_investments()
 ```
 
 
