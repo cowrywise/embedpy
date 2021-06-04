@@ -36,31 +36,32 @@ class Client(object):
             api_version=None,
     ):
 
-        self.client_id = client_id or os.getenv("CLIENT_ID")
-        if self.client_id is None:
+        self._client_id = client_id or os.getenv("CLIENT_ID")
+        if self._client_id is None:
             raise APICredentialsError(
                 "Please provide client ID or set CLIENT_ID in environment variable."
             )
 
-        self.client_secret = client_secret or os.getenv("CLIENT_SECRET")
-        if self.client_secret is None:
+        self._client_secret = client_secret or os.getenv("CLIENT_SECRET")
+        if self._client_secret is None:
             raise APICredentialsError(
                 "Provide client secret or set CLIENT_SECRET in environment variable."
             )
 
-        self.api_version = api_version or self.API_VERSION
-        self.base_url = base_url or self.BASE_API_URI
+        self._api_version = api_version or self.API_VERSION
+        self._base_url = base_url or self.BASE_API_URI
 
-        self._access_token, _ = Token(self.client_id, self.client_secret, self.base_url).get_access_token()
-        self._accounts = Account(self.base_url, self.access_token, self.api_version)
-        self._assets = Asset(self.base_url, self.access_token, self.api_version)
-        self._investments = Investment(self.base_url, self.access_token, self.api_version)
-        self._indexes = Index(self.base_url, self.access_token, self.api_version)
-        self._savings = Saving(self.base_url, self.access_token, self.api_version)
-        self._trades = Trade(self.base_url, self.access_token, self.api_version)
-        self._transactions = Transaction(self.base_url, self.access_token, self.api_version)
-        self._prices = Price(self.base_url, self.access_token, self.api_version)
-        self._wallets = Wallet(self.base_url, self.access_token, self.api_version)
+        self._access_token, _ = Token(self._client_id, self._client_secret, self._base_url).get_access_token()
+
+        self._accounts = Account(self._base_url, self._access_token, self._api_version)
+        self._assets = Asset(self._base_url, self._access_token, self._api_version)
+        self._investments = Investment(self._base_url, self._access_token, self._api_version)
+        self._indexes = Index(self._base_url, self._access_token, self._api_version)
+        self._savings = Saving(self._base_url, self._access_token, self._api_version)
+        self._trades = Trade(self._base_url, self._access_token, self._api_version)
+        self._transactions = Transaction(self._base_url, self._access_token, self._api_version)
+        self._prices = Price(self._base_url, self._access_token, self._api_version)
+        self._wallets = Wallet(self._base_url, self._access_token, self._api_version)
 
     @property
     def access_token(self):
