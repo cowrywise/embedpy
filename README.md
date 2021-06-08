@@ -35,7 +35,7 @@ Alternatively, initialize the Embed Client with your credentials.
 from embed import Client
 client = Client(client_id='****', client_secret='****')
 ```
-### Create Investment Accounts
+#### Create Accounts
 ```
 # Create investment account for your customer
 client.accounts.create_account(
@@ -44,7 +44,7 @@ client.accounts.create_account(
    email= "mans_not_hot@gmaili.com
 )
 ```
-
+#### Create Investments
 ```
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
@@ -56,7 +56,7 @@ client.investments.create_investment(
   asset_code="AST-FUND-1655862279",
 )
 ```
-
+#### Transfer funds
 ```
 # Transfer funds from a wallet to a savings/investment product
 client.transfers.initiate_transfer(
@@ -66,6 +66,7 @@ client.transfers.initiate_transfer(
   currency: 'NGN'
 )
 ```
+Check the [API reference](developers.cowrywise.com) document for more examples.
 
 # Contributing
 We welcome contribution from everyone. Before submitting a pull request, kindly ensure:
