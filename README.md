@@ -33,9 +33,9 @@ Alternatively, initialize the Embed Client with your credentials.
 
 ```
 from embed import Client
-client = Client(client_id, client_secret)
+client = Client(client_id='****', client_secret='****')
 ```
-
+### Create Investment Accounts
 ```
 # Create investment account for your customer
 client.accounts.create_account(

@@ -1,4 +1,5 @@
 import json
+import uuid
 from embed.common import APIResponse
 
 
@@ -7,17 +8,18 @@ class Account(APIResponse):
     Handles all queries for Account
     """
 
-    def __init__(self, api_host, token, version):
+    def __init__(self, api_session):
         super(Account, self).__init__()
-        self.api_host = f"{api_host}/api/{version}/"
-        self.token = token
+        self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
+        self.token = api_session.token
         self._headers.update({
             "Authorization": f"Bearer {self.token}"
         })
 
     def create_account(self, first_name, last_name, email):
+        self._headers.update({"embed_idempotency_key": str(uuid.uuid4())})
         method = "POST"
-        url = self.api_host + "accounts"
+        url = self.base_url + "accounts"
 
         payload = json.dumps(
             {"first_name": first_name, "last_name": last_name, "email": email}
@@ -26,12 +28,12 @@ class Account(APIResponse):
 
     def get_accounts(self):
         method = "GET"
-        url = self.api_host + "accounts"
+        url = self.base_url + "accounts"
         return self.get_essential_details(method, url)
 
     def get_account(self, account_id):
         method = "GET"
-        url = self.api_host + f"accounts/{account_id}"
+        url = self.base_url + f"accounts/{account_id}"
         return self.get_essential_details(method, url)
 
     def get_portfolio(self, account_id):
@@ -40,7 +42,7 @@ class Account(APIResponse):
         The asset_id comes from calling get_all_assets() of Asset
         """
         method = "GET"
-        url = self.api_host + f"accounts/{account_id}/portfolio"
+        url = self.base_url + f"accounts/{account_id}/portfolio"
         return self.get_essential_details(method, url)
 
     def update_address(
@@ -51,7 +53,7 @@ class Account(APIResponse):
         country options: NG, GH, etc
         """
         method = "POST"
-        url = self.api_host + f"accounts/{account_id}/address"
+        url = self.base_url + f"accounts/{account_id}/address"
 
         payload = json.dumps(
             {
@@ -80,7 +82,7 @@ class Account(APIResponse):
         gender options: M or F
         """
         method = "POST"
-        url = self.api_host + f"accounts/{account_id}/nok"
+        url = self.base_url + f"accounts/{account_id}/nok"
 
         payload = json.dumps(
             {
@@ -110,7 +112,7 @@ class Account(APIResponse):
         Gender options: M or F
         """
         method = "POST"
-        url = self.api_host + f"accounts/{account_id}/profile"
+        url = self.base_url + f"accounts/{account_id}/profile"
 
         payload = json.dumps(
             {
@@ -126,7 +128,7 @@ class Account(APIResponse):
 
     def update_identity(self, account_id, identity_type, identity_value):
         method = "POST"
-        url = self.api_host + f"accounts/{account_id}/identity"
+        url = self.base_url + f"accounts/{account_id}/identity"
 
         payload = json.dumps(
             {"identity_type": identity_type, "identity_value": identity_value}

@@ -6,15 +6,15 @@ class Transaction(APIResponse):
     Handles all queries for Transaction
     """
 
-    def __init__(self, api_host, token, version):
+    def __init__(self, api_session):
         super(Transaction, self).__init__()
-        self.api_host = f"{api_host}/api/{version}/"
-        self.token = token
+        self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
+        self.token = api_session.token
         self._headers.update({
             "Authorization": f"Bearer {self.token}"
         })
 
     def get_transactions(self):
         method = "GET"
-        url = self.api_host + f"transactions"
+        url = self.base_url + f"transactions"
         return self.get_essential_details(method, url)

@@ -1,8 +1,9 @@
 import json
 import requests
 from embed.errors import EmbedError, EmbedConnectionError
+from embed.errors import CredentialsError, ServerError
 from embed import __version__
-
+import uuid
 
 class HTTPClient(object):
     def __init__(self, verify_ssl_certs=True):
@@ -16,7 +17,6 @@ class HTTPClient(object):
 
 
 class APIResponse(HTTPClient):
-
     TIMEOUT = 40
 
     def __init__(self, response=None, status=None):
@@ -50,8 +50,8 @@ class APIResponse(HTTPClient):
                     timeout=self.TIMEOUT,
                     **self.kwargs,
                 )
-                #print(result.request.headers)
-                #print(result.request.url)
+                print(result.request.headers)
+                print(result.request.url)
             except TypeError as _exc:
                 raise EmbedError(f"Error encountered: {_exc}")
 
@@ -86,3 +86,52 @@ class APIResponse(HTTPClient):
     @property
     def status(self):
         return self._status
+
+
+class APISession(APIResponse):
+    def __init__(self, base_url, client_id, client_secret, api_version):
+        super(APISession, self).__init__()
+
+        self._base_url = base_url
+        self._api_version = api_version
+        self._client_id = client_id
+        self._client_secret = client_secret
+        self._token_url = f"{self.base_url}/o/token/"
+        self._grant_type = "client_credentials"
+        self._headers.update({"Content-Type": "application/x-www-form-urlencoded"})
+        self._access_token, _ = self._get_access_token()
+
+    def _get_access_token(self):
+        payload = f"grant_type={self._grant_type}&client_id={self._client_id}&client_secret={self._client_secret}"
+        response, status = self.request(
+            "POST", self._token_url, self._headers, post_data=payload
+        )
+        if response is None:
+            if status >= 500:
+                raise ServerError(
+                    f"Server error. Please contact support. Error: {status}."
+                )
+            else:
+                raise CredentialsError(
+                    f"Unable to authenticate with client credentials. Error {status}."
+                )
+        if status == 401:
+            raise CredentialsError(
+                f"Unable to authenticate with client credentials. Error {status}."
+            )
+        return response.get("access_token"), status
+
+    @property
+    def token(self):
+        return self._access_token
+
+    @property
+    def api_version(self):
+        return self._api_version
+
+    @property
+    def base_url(self):
+        return self._base_url
+
+    def __str__(self):
+        return f"{self._base_url} - {self._token} - {self._api_version}"

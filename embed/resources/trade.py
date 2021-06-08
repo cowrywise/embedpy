@@ -7,42 +7,42 @@ class Trade(APIResponse):
     Handles all queries for Trade
     """
 
-    def __init__(self, api_host, token: str, version: str):
+    def __init__(self, api_session):
         super(Trade, self).__init__()
-        self.api_host = f"{api_host}/api/{version}/"
-        self.token = token
+        self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
+        self.token = api_session.token
         self._headers.update({
             "Authorization": f"Bearer {self.token}"
         })
 
     def get_stocks(self):
         method = "GET"
-        url = self.api_host + "stocks/assets"
+        url = self.base_url + "stocks/assets"
         return self.get_essential_details(method, url)
 
     def get_single_position(self, account_id, stock_symbol):
         method = "GET"
-        url = self.api_host + f"stocks/{stock_symbol}/positions?account_id={account_id}"
+        url = self.base_url + f"stocks/{stock_symbol}/positions?account_id={account_id}"
         return self.get_essential_details(method, url)
 
     def get_orders(self, account_id):
         method = "GET"
-        url = self.api_host + f"stocks/orders?account_id={account_id}&status=open"
+        url = self.base_url + f"stocks/orders?account_id={account_id}&status=open"
         return self.get_essential_details(method, url)
 
     def get_profile(self, account_id):
         method = "GET"
-        url = self.api_host + f"stocks/profile?account_id={account_id}"
+        url = self.base_url + f"stocks/profile?account_id={account_id}"
         return self.get_essential_details(method, url)
 
     def get_position(self, account_id):
         method = "GET"
-        url = self.api_host + f"stocks/positions?account_id={account_id}"
+        url = self.base_url + f"stocks/positions?account_id={account_id}"
         return self.get_essential_details(method, url)
 
     def buy_stock(self, symbol, amount, side, the_type, time_in_force, account_id):
         method = "POST"
-        url = self.api_host + "stocks/buy"
+        url = self.base_url + "stocks/buy"
 
         payload = json.dumps(
             {
@@ -58,7 +58,7 @@ class Trade(APIResponse):
 
     def sell_stock(self, symbol, amount, side, the_type, time_in_force, account_id):
         method = "POST"
-        url = self.api_host + "stocks/sell"
+        url = self.base_url + "stocks/sell"
 
         payload = json.dumps(
             {
@@ -74,5 +74,5 @@ class Trade(APIResponse):
 
     def close_all_positions(self, account_id):
         method = "DELETE"
-        url = self.api_host + f"stocks/positions?account_id={account_id}"
+        url = self.base_url + f"stocks/positions?account_id={account_id}"
         return self.get_essential_details(method, url)

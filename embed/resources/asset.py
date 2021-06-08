@@ -7,10 +7,10 @@ class Asset(APIResponse):
     Handles all queries for Asset
     """
 
-    def __init__(self, api_host, token, version):
+    def __init__(self, api_session):
         super(Asset, self).__init__()
-        self.api_host = f"{api_host}/api/{version}/"
-        self.token = token
+        self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
+        self.token = api_session.token
         self._headers.update({
             "Authorization": f"Bearer {self.token}"
         })
@@ -20,7 +20,7 @@ class Asset(APIResponse):
         Get all the known assets
         """
         method = "GET"
-        url = self.api_host + "assets"
+        url = self.base_url + "assets"
         return self.get_essential_details(method, url)
 
     def get_filtered_assets(self, asset_type):
@@ -28,7 +28,7 @@ class Asset(APIResponse):
         Filter assets by type:  tbills, mutual-fund, index
         """
         method = "GET"
-        url = self.api_host + f"assets?asset_type={asset_type}"
+        url = self.base_url + f"assets?asset_type={asset_type}"
         return self.get_essential_details(method, url)
 
     def get_asset(self, asset_id):
@@ -36,5 +36,5 @@ class Asset(APIResponse):
         Get a single asset by id
         """
         method = "GET"
-        url = self.api_host + f"assets/{asset_id}"
+        url = self.base_url + f"assets/{asset_id}"
         return self.get_essential_details(method, url)

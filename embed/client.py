@@ -7,10 +7,11 @@ from embed.resources.index import Index
 from embed.resources.investment import Investment
 from embed.resources.price import Price
 from embed.resources.saving import Saving
-from embed.resources.token import Token
 from embed.resources.trade import Trade
 from embed.resources.transaction import Transaction
 from embed.resources.wallet import Wallet
+from embed.resources.transfer import Transfer
+from embed.common import APISession
 
 
 class Client(object):
@@ -39,7 +40,7 @@ class Client(object):
         self._client_id = client_id or os.getenv("CLIENT_ID")
         if self._client_id is None:
             raise CredentialsError(
-                "Please provide client ID or set CLIENT_ID in environment variable."
+                "Provide client id or set CLIENT_ID as environment variable."
             )
 
         self._client_secret = client_secret or os.getenv("CLIENT_SECRET")
@@ -51,26 +52,23 @@ class Client(object):
         self._api_version = api_version or self.API_VERSION
         self._base_url = base_url or self.BASE_API_URI
 
-        self._access_token, _ = Token(
-            self._client_id, self._client_secret, self._base_url
-        ).get_access_token()
-        self._accounts = Account(self._base_url, self._access_token, self._api_version)
-        self._assets = Asset(self._base_url, self._access_token, self._api_version)
-        self._investments = Investment(
-            self._base_url, self._access_token, self._api_version
-        )
-        self._indexes = Index(self._base_url, self._access_token, self._api_version)
-        self._savings = Saving(self._base_url, self._access_token, self._api_version)
-        self._trades = Trade(self._base_url, self._access_token, self._api_version)
-        self._transactions = Transaction(
-            self._base_url, self._access_token, self._api_version
-        )
-        self._prices = Price(self._base_url, self._access_token, self._api_version)
-        self._wallets = Wallet(self._base_url, self._access_token, self._api_version)
+        self._session = APISession(self._base_url, self._client_id,
+                                   self._client_secret, self._api_version)
+
+        self._accounts = Account(self._session)
+        self._assets = Asset(self._session)
+        self._investments = Investment(self._session)
+        self._indexes = Index(self._session)
+        self._savings = Saving(self._session)
+        self._trades = Trade(self._session)
+        self._transactions = Transaction(self._session)
+        self._prices = Price(self._session)
+        self._wallets = Wallet(self._session)
+        self._transfers = Transfer(self._session)
 
     @property
     def access_token(self):
-        return self._access_token
+        return self._session.token
 
     @property
     def accounts(self):
@@ -95,6 +93,10 @@ class Client(object):
     @property
     def trades(self):
         return self._trades
+
+    @property
+    def transfers(self):
+        return self._transfers
 
     @property
     def transactions(self):
