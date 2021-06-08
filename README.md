@@ -44,22 +44,27 @@ client.accounts.create_account(
    email= "mans_not_hot@gmaili.com
 )
 ```
+
 ```
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
 client.assets.get_assets()
 
-# Make an invest for your customer
+# Create an investment with a given asset code
 client.investments.create_investment(
   account_id="8ddfb5ea9fe440f9a7d086b7c8f14abd",
-  amount=50000, #kobo
   asset_code="AST-FUND-1655862279",
 )
 ```
 
 ```
-# Get a user's investment portfolio
-client.accounts.get_portfolio('8ddfb5ea9fe440f9a7d086b7c8f14abd')
+# Transfer funds from a wallet to a savings/investment product
+client.transfers.initiate_transfer(
+  source_wallet_id: 'ec45bb798f244c75b9432ec19256316b', 
+  destination_product_code: 'PRCDE1297453250', 
+  amount: '50000', 
+  currency: 'NGN'
+)
 ```
 
 # Contributing
