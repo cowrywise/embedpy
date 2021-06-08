@@ -16,8 +16,9 @@ class Account(APIResponse):
             "Authorization": f"Bearer {self.token}"
         })
 
-    def create_account(self, first_name, last_name, email):
-        self._headers.update({"embed_idempotency_key": str(uuid.uuid4())})
+    def create_account(self, first_name, last_name, email, idempotency_key=None):
+        if idempotency_key:
+            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
         method = "POST"
         url = self.base_url + "accounts"
 

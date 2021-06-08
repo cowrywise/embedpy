@@ -26,15 +26,10 @@ class Wallet(APIResponse):
         url = self.base_url + f"wallets/{wallet_id}"
         return self.get_essential_details(method, url)
 
-    def create_wallet(self, account_id, currency="NGN"):
+    def create_wallet(self, account_id, currency="NGN", idempotency_key=None):
         method = "POST"
-        self._headers.update({"embed_idempotency_key": str(uuid.uuid4())})
+        if idempotency_key:
+            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
         url = self.base_url + "wallets"
         payload = json.dumps({"account_id": account_id, "currency_code": currency})
-        return self.get_essential_details(method, url, payload)
-
-    def transfer_from_wallet(self, account_id, amount, product_code):
-        method = "POST"
-        url = self.base_url + f"wallets/{account_id}/transfer"
-        payload = json.dumps({"amount": amount, "product_code": product_code})
         return self.get_essential_details(method, url, payload)

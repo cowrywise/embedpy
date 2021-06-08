@@ -31,9 +31,10 @@ class Index(APIResponse):
         url = self.base_url + f"indexes/{asset_id}/assets"
         return self.get_essential_details(method, url)
 
-    def create_custom_index(self, account_id, name, description, allocations):
+    def create_custom_index(self, account_id, name, description, allocations, idempotency_key=None):
         method = "POST"
-        self._headers.update({"embed_idempotency_key": str(uuid.uuid4())})
+        if idempotency_key:
+            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
         url = self.base_url + "indexes"
         payload = json.dumps(
             {

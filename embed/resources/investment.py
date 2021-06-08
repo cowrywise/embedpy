@@ -31,18 +31,19 @@ class Investment(APIResponse):
         url = self.base_url + f"investments?asset_type={asset_type}"
         return self.get_essential_details(method, url)
 
-    def create_investment(self, account_id, asset_code, amount):
+    def create_investment(self, account_id, asset_code, idempotency_key=None):
         method = "POST"
-        self._headers.update({"embed_idempotency_key": str(uuid.uuid4())})
+        if idempotency_key:
+            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
         url = self.base_url + "investments"
 
-        payload = json.dumps(
-            {"account_id": account_id, "asset_code": asset_code, "amount": amount}
-        )
+        payload = json.dumps({"account_id": account_id, "asset_code": asset_code})
         return self.get_essential_details(method, url, payload)
 
-    def liquidate_investment(self, investment_id, units):
+    def liquidate_investment(self, investment_id, units, idempotency_key=None):
         method = "POST"
+        if idempotency_key:
+            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
         url = self.base_url + f"investments/{investment_id}/liquidate"
 
         payload = json.dumps({"units": units})

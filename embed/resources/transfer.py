@@ -26,10 +26,12 @@ class Transfer(APIResponse):
         url = self.base_url + f"transfers/{transfer_id}"
         return self.get_essential_details(method, url)
 
-    def initiate_transfer(self, source_wallet_id, destination_product_code, amount, currency_code):
-        self._headers.update({"embed_idempotency_key": str(uuid.uuid4())})
+    def initiate_transfer(self, source_wallet_id, destination_product_code,
+                          amount, currency_code, idempotency_key=None):
         method = "POST"
         url = self.base_url + "transfers"
+        if idempotency_key:
+            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
         payload = json.dumps({
             "source_wallet_id": source_wallet_id,
             "destination_product_code": destination_product_code,
