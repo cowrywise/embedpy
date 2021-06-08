@@ -34,7 +34,7 @@ class Investment(APIResponse):
     def create_investment(self, account_id, asset_code, idempotency_key=None):
         method = "POST"
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         url = self.base_url + "investments"
 
         payload = json.dumps({"account_id": account_id, "asset_code": asset_code})
@@ -43,7 +43,7 @@ class Investment(APIResponse):
     def liquidate_investment(self, investment_id, units, idempotency_key=None):
         method = "POST"
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         url = self.base_url + f"investments/{investment_id}/liquidate"
 
         payload = json.dumps({"units": units})

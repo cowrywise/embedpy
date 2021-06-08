@@ -44,7 +44,7 @@ class Trade(APIResponse):
         method = "POST"
         url = self.base_url + "stocks/buy"
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         payload = json.dumps(
             {
                 "symbol": symbol,
@@ -61,7 +61,7 @@ class Trade(APIResponse):
         method = "POST"
         url = self.base_url + "stocks/sell"
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         payload = json.dumps(
             {
                 "symbol": symbol,

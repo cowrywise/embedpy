@@ -18,7 +18,7 @@ class Account(APIResponse):
 
     def create_account(self, first_name, last_name, email, idempotency_key=None):
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         method = "POST"
         url = self.base_url + "accounts"
 

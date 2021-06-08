@@ -19,7 +19,7 @@ class Saving(APIResponse):
     def create_savings(self, account_id, days, interest_enabled, currency_code="NGN", idempotency_key=None):
         method = "POST"
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         url = self.base_url + "savings"
 
         payload = json.dumps(

@@ -31,7 +31,7 @@ class Transfer(APIResponse):
         method = "POST"
         url = self.base_url + "transfers"
         if idempotency_key:
-            self._headers.update({"embed_idempotency_key": str(idempotency_key)})
+            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         payload = json.dumps({
             "source_wallet_id": source_wallet_id,
             "destination_product_code": destination_product_code,
