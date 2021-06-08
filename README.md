@@ -8,7 +8,7 @@ See the [Embed API docs](developer.cowrywise.com).
 ## Installation
 Clone the repo or install the library via pypi.
 
-```
+```python
 $ pip install embed-python (not yet)
 ```
 
@@ -19,7 +19,7 @@ $ pip install embed-python (not yet)
 To get started, signup for developer credentials on [app.cowrywise.com](https://app.cowrywise.com). Once you signup, you can retrieve
 you client_id and client_secret keys from the developer dashboard. Set your credentials in environment variables. 
 
-```
+```python
 # Set environment variables
 CLIENT_ID = CWRY-substitute-yours-here
 CLIENT_SECRET = CWRY-SECRET-substitute-yours-here
@@ -31,12 +31,12 @@ client = Client()
 
 Alternatively, initialize the Embed Client with your credentials.
 
-```
+```python
 from embed import Client
 client = Client(client_id='****', client_secret='****')
 ```
 #### Create Accounts
-```
+```python
 # Create investment account for your customer
 client.accounts.create_account(
    first_name= "Mansa",
@@ -45,7 +45,7 @@ client.accounts.create_account(
 )
 ```
 #### Create Investments
-```
+```python
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
 client.assets.get_assets()
@@ -57,7 +57,7 @@ client.investments.create_investment(
 )
 ```
 #### Transfer funds
-```
+```python
 # Transfer funds from a wallet to a savings/investment product
 client.transfers.initiate_transfer(
   source_wallet_id: 'ec45bb798f244c75b9432ec19256316b', 
