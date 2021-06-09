@@ -60,12 +60,11 @@ client.investments.create_investment(
 ```python
 # Transfer funds from a wallet to a savings/investment product
 client.transfers.initiate_transfer(
-  source_wallet_id: 'ec45bb798f244c75b9432ec19256316b', 
-  destination_product_code: 'PRCDE1297453250', 
-  amount: {
-	'value': 50000, 
-        'currency': 'NGN'
-  })
+  source_wallet_id='ec45bb798f244c75b9432ec19256316b', 
+  destination_product_code='PRCDE1297453250', 
+  amount=50000, #kobo/cents 
+  currency_code='NGN'
+})
 ```
 Check the [API reference](developers.cowrywise.com) document for more examples.
 
