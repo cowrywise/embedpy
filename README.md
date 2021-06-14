@@ -35,6 +35,13 @@ Alternatively, initialize the Embed Client with your credentials.
 from embed import Client
 client = Client(client_id='****', client_secret='****')
 ```
+Optionally specify environment base url. If no base_url is specified, this defaults to sandbox.
+```python
+from embed import Client
+client = Client(client_id='****', client_secret='****', base_url="https://***.cowrywise.com")
+
+```
+
 #### Create Accounts
 ```python
 # Create investment account for your customer
