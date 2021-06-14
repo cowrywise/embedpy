@@ -29,17 +29,11 @@ from embed import Client
 client = Client()
 ```
 
-Alternatively, initialize the Embed Client with your credentials.
+Alternatively, instantiate the Embed Client with your credentials. You can specify a base url during this instantiation. This is optional and defaults to the sandbox base url.
 
-```python
-from embed import Client
-client = Client(client_id='****', client_secret='****')
-```
-Optionally specify environment base url. If no base_url is specified, this defaults to sandbox.
 ```python
 from embed import Client
 client = Client(client_id='****', client_secret='****', base_url="https://***.cowrywise.com")
-
 ```
 
 #### Create Accounts
