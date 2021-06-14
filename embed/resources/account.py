@@ -1,6 +1,6 @@
 import json
-import uuid
 from embed.common import APIResponse
+from embed.errors import ValidationError
 
 
 class Account(APIResponse):
@@ -12,19 +12,21 @@ class Account(APIResponse):
         super(Account, self).__init__()
         self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
         self.token = api_session.token
-        self._headers.update({
-            "Authorization": f"Bearer {self.token}"
-        })
+        self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def create_account(self, first_name, last_name, email, idempotency_key=None):
-        if idempotency_key:
-            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
+    def create_account(self, **kwargs):
+        required = ["first_name", "last_name", "email"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
         method = "POST"
         url = self.base_url + "accounts"
 
-        payload = json.dumps(
-            {"first_name": first_name, "last_name": last_name, "email": email}
-        )
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
     def get_accounts(self):
@@ -46,92 +48,83 @@ class Account(APIResponse):
         url = self.base_url + f"accounts/{account_id}/portfolio"
         return self.get_essential_details(method, url)
 
-    def update_address(
-        self, account_id, street, lga, area_code, city, state, country="NG"
-    ):
+    def update_address(self, **kwargs):
         """
         Update the address of an account
         country options: NG, GH, etc
         """
+        required = [
+            "account_id",
+            "street",
+            "lga",
+            "area_code",
+            "city",
+            "state",
+            "country",
+        ]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
         method = "POST"
+        account_id = kwargs.get("account_id")
         url = self.base_url + f"accounts/{account_id}/address"
 
-        payload = json.dumps(
-            {
-                "street": street,
-                "lga": lga,
-                "area_code": area_code,
-                "city": city,
-                "state": state,
-                "country": country,
-            }
-        )
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def update_next_of_kin(
-        self,
-        account_id,
-        email,
-        first_name,
-        last_name,
-        phone_number,
-        relationship,
-        gender=None,
-    ):
+    def update_next_of_kin(self, **kwargs):
         """
         Update the next of kin details.
         gender options: M or F
         """
+        required = [
+            "account_id",
+            "email",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "relationship",
+            "gender",
+        ]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
         method = "POST"
+        account_id = kwargs.get("account_id")
         url = self.base_url + f"accounts/{account_id}/nok"
 
-        payload = json.dumps(
-            {
-                "email": email,
-                "first_name": first_name,
-                "gender": gender,
-                "last_name": last_name,
-                "phone_number": phone_number,
-                "relationship": relationship,
-            }
-        )
-
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def update_profile(
-        self,
-        account_id,
-        email,
-        first_name,
-        last_name,
-        phone_number,
-        date_of_birth,
-        gender=None,
-    ):
+    def update_profile(self, **kwargs):
         """
         Update a profile.
         Gender options: M or F
         """
+        required = ["account_id"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
         method = "POST"
+        account_id = kwargs.get("account_id")
         url = self.base_url + f"accounts/{account_id}/profile"
 
-        payload = json.dumps(
-            {
-                "phone_number": phone_number,
-                "date_of_birth": date_of_birth,
-                "email": email,
-                "first_name": first_name,
-                "last_name": last_name,
-                "gender": gender,
-            }
-        )
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def update_identity(self, account_id, identity_type, identity_value):
+    def update_identity(self, **kwargs):
+
+        required = ["account_id", "identity_type", "identity_value"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
         method = "POST"
+        account_id = kwargs.get("account_id")
         url = self.base_url + f"accounts/{account_id}/identity"
 
-        payload = json.dumps(
-            {"identity_type": identity_type, "identity_value": identity_value}
-        )
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)

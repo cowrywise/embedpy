@@ -9,6 +9,10 @@ class CredentialsError(EmbedError):
     pass
 
 
+class ValidationError(EmbedError):
+    pass
+
+
 class ServerError(EmbedError):
     pass
 

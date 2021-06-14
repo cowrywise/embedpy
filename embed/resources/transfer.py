@@ -1,6 +1,7 @@
 import json
 import uuid
 from embed.common import APIResponse
+from embed.errors import ValidationError
 
 
 class Transfer(APIResponse):
@@ -12,9 +13,7 @@ class Transfer(APIResponse):
         super(Transfer, self).__init__()
         self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
         self.token = api_session.token
-        self._headers.update({
-            "Authorization": f"Bearer {self.token}"
-        })
+        self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def get_transfers(self):
         method = "GET"
@@ -26,18 +25,29 @@ class Transfer(APIResponse):
         url = self.base_url + f"transfers/{transfer_id}"
         return self.get_essential_details(method, url)
 
-    def initiate_transfer(self, source_wallet_id, destination_product_code,
-                          amount, currency_code, idempotency_key=None):
+    def initiate_transfer(self, **kwargs):
+
+        required = [
+            "source_wallet_id",
+            "destination_product_code",
+            "amount",
+            "currency_code",
+        ]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
+
+        currency_code = kwargs.pop("currency_code")
+        amount = kwargs.pop("amount")
+
+        kwargs.update({"amount": {"currency": currency_code, "value": amount}})
+
         method = "POST"
         url = self.base_url + "transfers"
-        if idempotency_key:
-            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
-        payload = json.dumps({
-            "source_wallet_id": source_wallet_id,
-            "destination_product_code": destination_product_code,
-            "amount": {
-                "currency": currency_code,
-                "value": amount
-            }
-        })
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)

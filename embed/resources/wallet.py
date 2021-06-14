@@ -1,5 +1,5 @@
 import json
-import uuid
+from embed.errors import ValidationError
 from embed.common import APIResponse
 
 
@@ -26,10 +26,19 @@ class Wallet(APIResponse):
         url = self.base_url + f"wallets/{wallet_id}"
         return self.get_essential_details(method, url)
 
-    def create_wallet(self, account_id, currency="NGN", idempotency_key=None):
+    def create_wallet(self, **kwargs):
+
+        required = ["account_id", "currency_code"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
+
         method = "POST"
-        if idempotency_key:
-            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         url = self.base_url + "wallets"
-        payload = json.dumps({"account_id": account_id, "currency_code": currency})
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)

@@ -1,6 +1,6 @@
 import json
-import uuid
 from embed.common import APIResponse
+from embed.errors import ValidationError
 
 
 class Saving(APIResponse):
@@ -12,24 +12,24 @@ class Saving(APIResponse):
         super(Saving, self).__init__()
         self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
         self.token = api_session.token
-        self._headers.update({
-            "Authorization": f"Bearer {self.token}"
-        })
+        self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def create_savings(self, account_id, days, interest_enabled, currency_code="NGN", idempotency_key=None):
+    def create_savings(self, **kwargs):
+
+        required = ["account_id", "days", "interest_enabled", "currency_code"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
+
         method = "POST"
-        if idempotency_key:
-            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
         url = self.base_url + "savings"
 
-        payload = json.dumps(
-            {
-                "account_id": account_id,
-                "currency_code": currency_code,
-                "days": days,
-                "interest_enabled": interest_enabled,
-            }
-        )
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
     def get_savings(self):

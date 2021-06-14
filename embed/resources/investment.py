@@ -1,6 +1,6 @@
 import json
-import uuid
 from embed.common import APIResponse
+from embed.errors import ValidationError
 
 
 class Investment(APIResponse):
@@ -12,9 +12,7 @@ class Investment(APIResponse):
         super(Investment, self).__init__()
         self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
         self.token = api_session.token
-        self._headers.update({
-            "Authorization": f"Bearer {self.token}"
-        })
+        self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def get_investments(self):
         method = "GET"
@@ -31,20 +29,37 @@ class Investment(APIResponse):
         url = self.base_url + f"investments?asset_type={asset_type}"
         return self.get_essential_details(method, url)
 
-    def create_investment(self, account_id, asset_code, idempotency_key=None):
-        method = "POST"
-        if idempotency_key:
-            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
-        url = self.base_url + "investments"
+    def create_investment(self, **kwargs):
+        required = ["account_id", "asset_code"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
 
-        payload = json.dumps({"account_id": account_id, "asset_code": asset_code})
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
+
+        method = "POST"
+        url = self.base_url + "investments"
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def liquidate_investment(self, investment_id, units, idempotency_key=None):
+    def liquidate_investment(self, **kwargs):
+
+        required = ["investment_id", "units"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
+
         method = "POST"
-        if idempotency_key:
-            self._headers.update({"Embed-Idempotency-Key": str(idempotency_key)})
+        investment_id = kwargs.pop("investment_id")
         url = self.base_url + f"investments/{investment_id}/liquidate"
 
-        payload = json.dumps({"units": units})
+        payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)

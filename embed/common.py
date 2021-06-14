@@ -3,7 +3,7 @@ import requests
 from embed.errors import EmbedError, EmbedConnectionError
 from embed.errors import CredentialsError, ServerError
 from embed import __version__
-import uuid
+
 
 class HTTPClient(object):
     def __init__(self, verify_ssl_certs=True):
