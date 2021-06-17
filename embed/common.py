@@ -2,7 +2,7 @@ import json
 import requests
 from embed.errors import EmbedError, EmbedConnectionError
 from embed.errors import CredentialsError, ServerError
-from embed import __version__
+from embed.version import __version__
 
 
 class HTTPClient(object):
