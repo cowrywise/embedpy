@@ -25,14 +25,14 @@ CLIENT_ID = CWRY-substitute-yours-here
 CLIENT_SECRET = CWRY-SECRET-substitute-yours-here
 
 # Create an instance of the Embed Client
-from embed import Client
+from embed.client import Client
 client = Client()
 ```
 
 Alternatively, instantiate the Embed Client with your credentials. You can specify a base url during this instantiation. This is optional and defaults to the sandbox base url.
 
 ```python
-from embed import Client
+from embed.client import Client
 client = Client(client_id='****', client_secret='****', base_url="https://***.cowrywise.com")
 ```
 
