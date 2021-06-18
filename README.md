@@ -6,7 +6,12 @@ The Embed Python library provides an easy access to the Embed Investment API by 
 See the [Embed API docs](developer.cowrywise.com).
 
 ## Installation
-Clone the repo or install the library via pypi.
+Install the package directly via git
+
+```python
+pip install git+https://github.com/cowrywise/embed-python.git
+```
+You could also install the library via pypi using the pip package manager.
 
 ```python
 $ pip install embed (not yet)
@@ -16,7 +21,7 @@ $ pip install embed (not yet)
 - Python3.8+
 
 ## Usage
-To get started, signup for developer credentials on [app.cowrywise.com](https://app.cowrywise.com). Once you signup, you can retrieve
+To get started, signup for developer credentials on [Embed Dashboard](https://embed.cowrywise.com). Once you signup, you can retrieve
 you client_id and client_secret keys from the developer dashboard. Set your credentials in environment variables. 
 
 ```python
@@ -45,6 +50,14 @@ client.accounts.create_account(
    email= "mans_not_hot@gmaili.com
 )
 ```
+#### Fetch Assets
+```python
+# You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes (Asset collections)
+client.assets.get_assets()
+--
+client.indexes.get_indexes()
+```
+
 #### Create Investments
 ```python
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
