@@ -80,10 +80,10 @@ client.transfers.initiate_transfer(
   currency_code='NGN'
 })
 ```
-Check the [API reference](developers.cowrywise.com) document for more examples.
+Check the [API reference](https://developers.cowrywise.com) document for more examples.
 
-# Contributing
-We welcome contribution from everyone. Before submitting a pull request, kindly ensure:
+# Contributions
+We welcome contributions from everyone. Before submitting a pull request, kindly ensure:
 - [ ] Necessary tests for the code changes requested are added
 - [ ]  Code is formatted according to PEP3
 - [ ] There is clear commit messages
