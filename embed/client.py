@@ -25,7 +25,7 @@ class Client(object):
     Full API docs available at https://developers.cowrywise.com
     """
 
-    BASE_API_URI = "https://sandbox.cowrywise.com"
+    BASE_API_URI = "https://sandbox.embed.cowrywise.com"
     API_VERSION = "v1"
     TIMEOUT = 40
 
