@@ -2,6 +2,26 @@ from embed.resources.account import Account
 from unittest.mock import MagicMock
 import json
 
+from tests import responses
+responses.crea
+
+
+
+
+
+
+
+'''
+const createAccountsResponse = require('../responses/create_account_200.json')
+const getAccountsResponse = require('../responses/get_account_200.json')
+const getSingleAccountsResponse = require('../responses/get_single_account_200.json')
+const getPortfolioResponse = require('../responses/get_portfolio_200.json')
+const updateAddressResponse = require('../responses/update_address_200.json')
+const updateNokResponse = require('../responses/update_nok_200.json')
+const updateProfileResponse = require('../responses/update_profile_200.json')
+const updateIdentityResponse = require('../responses/update_identity_200.json')
+const errorResponse = require('../responses/error_response_400_401.json')
+'''
 
 def test_can_create_account(api_session):
     account = Account(api_session)
