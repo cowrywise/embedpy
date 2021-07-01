@@ -19,9 +19,14 @@ UPDATE_IDENTITY_RESPONSE = get_api_json_responses('tests/responses/update_identi
 #ASSETS RESPONSES
 GET_ASSETS_RESPONSE = get_api_json_responses('tests/responses/get_assets_200.json')
 MUTUAL_FUND_ASSET_RESPONSE = get_api_json_responses('tests/responses/mutual_fund_assets.json')
-GET_SINGLE_ASSET_RESPONSE - get_api_json_responses('tests/responses/get_single_asset_200.json')
+GET_SINGLE_ASSET_RESPONSE = get_api_json_responses('tests/responses/get_single_asset_200.json')
+
+#INDEXES RESPONSES
+GET_SINGLE_INDEX_RESPONSE = get_api_json_responses('tests/responses/get_single_index_200.json')
 GET_INDEXES_RESPONSE = get_api_json_responses('tests/responses/get_indexes_200.json')
-GET_INDEXED_ASSET_RESPONSE = get_api_json_responses('tests/responses/get_indexed_asset_200.json')
+GET_INDEX_ASSETS_RESPONSE = get_api_json_responses('tests/responses/get_indexed_asset_200.json')
+CREATE_CUSTOM_INDEX_RESPONSE = get_api_json_responses('tests/responses/create_custom_index_200.json')
+UPDATE_CUSTOM_INDEX_RESPONSE = get_api_json_responses('tests/responses/update_custom_index_200.json')
 
 #AUTH RESPONSES
 REFRESH_TOKEN_RESPONSE = get_api_json_responses('tests/responses/refresh_token_200.json')
@@ -32,6 +37,8 @@ GET_INVESTMENTS_RESPONSE = get_api_json_responses('tests/responses/get_investmen
 GET_TBILLS_INVESTMENTS_RESPONSE = get_api_json_responses('tests/responses/get_tbills_investments_200.json')
 CREATE_INVESTMENTS_RESPONSE = get_api_json_responses('tests/responses/create_investment_200.json')
 LIQUIDATE_INVESTMENT_RESPONSE = get_api_json_responses('tests/responses/liquidate_investment_200.json')
+GET_SINGLE_INVESTMENT_RESPONSE = get_api_json_responses('tests/responses/get_single_investment_200.json')
+TBILL_INVESTMENT_RESPONSE = get_api_json_responses('tests/responses/treasury_bill_response_200.json')
 
 #PRICES RESPONSES
 GET_PRICE_HISTORY_RESPONSE = get_api_json_responses('tests/responses/get_price_history_200.json')
@@ -39,6 +46,7 @@ GET_PRICE_HISTORY_RESPONSE = get_api_json_responses('tests/responses/get_price_h
 #SAVINGS RESPONSES
 CREATE_SAVINGS_RESPONSE = get_api_json_responses('tests/responses/create_savings_response_200.json')
 GET_SAVINGS_RESPONSE = get_api_json_responses('tests/responses/get_savings_response_200.json')
+GET_SINGLE_SAVINGS_RESPONSE = get_api_json_responses('tests/responses/get_single_savings_200.json')
 
 #STOCKS RESPONSES
 GET_STOCKS_RESPONSE = get_api_json_responses('tests/responses/get_stocks_response_200.json')

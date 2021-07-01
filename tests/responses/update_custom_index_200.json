@@ -1,0 +1,34 @@
+{
+  "data":{
+    "index_id":"ffd13aa3-24c1-40d6-ac1e-ebe71a9aa37f",
+    "is_user_created":true,
+    "asset_code":"AST-INDEX-610963978",
+    "name":"Performing Index",
+    "description":"A custom index containing x y z assets",
+    "asset_type":"index",
+    "asset_class":"variable-income",
+    "allocations":[
+      {
+        "asset_id":"0db0dd04-832e-4068-82f1-156ad1aef575",
+        "asset_name":"Afrinvest Plutus Fund",
+        "asset_code":"AST-FUND-1655862279",
+        "weight":20.0
+      },
+      {
+        "asset_id":"bd353632-0c77-42b5-bc9b-913ca60d4db2",
+        "asset_name":"Afrinvest Equity Fund",
+        "asset_code":"AST-FUND-367626263",
+        "weight":40.0
+      },
+      {
+        "asset_id":"c5d29cf1-2991-42e4-b0ec-e73ac8654ca4",
+        "asset_name":"United Capital Money Market Fund",
+        "asset_code":"AST-FUND-1967179841",
+        "weight":40.0
+      }
+    ]
+  },
+  "errors":null,
+  "message":"Request successful",
+  "status":"success"
+}
