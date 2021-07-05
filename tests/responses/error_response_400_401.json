@@ -1,8 +1,0 @@
-{
-    "data": null,
-    "errors": [
-        "Given token not valid for any token type"
-    ],
-    "message": "Request failed",
-    "status": "failed"
-}

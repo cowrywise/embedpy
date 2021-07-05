@@ -3,21 +3,19 @@ from embed import errors
 from unittest.mock import MagicMock, patch
 import json
 import pytest
-from tests.responses import json_responses
 
 
 
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_create_account(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.CREATE_ACCOUNTS_RESPONSE, status_code=200)
+    mock_get_essential_details.return_value = MagicMock()
     test_data = {"first_name": "test", "last_name": "tester", "email": "tester@abc.com"}
-    response = account.create_account(
+    account.create_account(
         first_name=test_data.get("first_name"),
         last_name=test_data.get("last_name"),
         email=test_data.get("email"),
     )
-    assert response.data == json_responses.CREATE_ACCOUNTS_RESPONSE and response.status_code == 200
     account.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts",
@@ -28,7 +26,7 @@ def test_can_create_account(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_create_account_with_zero_params_raises_validation_error(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.ERROR_RESPONSE, status_code=400)
+    mock_get_essential_details.return_value = MagicMock()
     with pytest.raises(errors.ValidationError):
         account.create_account()
 
@@ -36,9 +34,8 @@ def test_create_account_with_zero_params_raises_validation_error(mock_get_essent
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_get_accounts(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.GET_ACCOUNTS_RESPONSE, status_code=200)
-    response = account.get_accounts()
-    assert response.data == json_responses.GET_ACCOUNTS_RESPONSE and response.status_code == 200
+    mock_get_essential_details.return_value = MagicMock()
+    account.get_accounts()
     account.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts",
@@ -48,9 +45,8 @@ def test_can_get_accounts(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_get_single_account(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.GET_SINGLE_ACCOUNTS_RESPONSE, status_code=200)
-    response = account.get_account("id")
-    assert response.data == json_responses.GET_SINGLE_ACCOUNTS_RESPONSE and response.status_code == 200
+    mock_get_essential_details.return_value = MagicMock()
+    account.get_account("id")
     account.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/id",
@@ -60,10 +56,8 @@ def test_can_get_single_account(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_get_portfolio(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.GET_PORTFOLIO_RESPONSE,
-                                                        status_code=200)
-    response = account.get_portfolio("fake_id")
-    assert response.data == json_responses.GET_PORTFOLIO_RESPONSE and response.status_code == 200
+    mock_get_essential_details.return_value = MagicMock()
+    account.get_portfolio("fake_id")
     account.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/fake_id/portfolio",
@@ -73,9 +67,9 @@ def test_can_get_portfolio(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_update_address(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.UPDATE_ADDRESS_RESPONSE, status_code=200)
+    mock_get_essential_details.return_value = MagicMock()
     test_data = {"account_id": "fake_id", "street": "Broadway", "lga": "Eti-Osa", "area_code": "100034", "city": "Lagos", "state": "Lagos", "country": "NG"}
-    response = account.update_address(
+    account.update_address(
         account_id=test_data.get("account_id"),
         street=test_data.get("street"),
         lga=test_data.get("lga"),
@@ -84,7 +78,6 @@ def test_can_update_address(mock_get_essential_details, api_session):
         state=test_data.get("state"),
         country=test_data.get("country")
     )
-    assert response.data == json_responses.UPDATE_ADDRESS_RESPONSE and response.status_code == 200
     account.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/fake_id/address",
@@ -95,9 +88,9 @@ def test_can_update_address(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_update_next_of_kin(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.UPDATE_NOK_RESPONSE, status_code=200)
+    mock_get_essential_details.return_value = MagicMock()
     test_data = {'account_id':'fake_id', 'email': 'jd@gmail.com', 'first_name': 'John', 'last_name': 'Doe', 'phone_number': '+2348034031863', 'relationship': 'Friend', 'gender': 'M'}
-    response = account.update_next_of_kin(
+    account.update_next_of_kin(
         account_id=test_data.get("account_id"),
         email=test_data.get("email"),
         first_name=test_data.get("first_name"),
@@ -106,7 +99,6 @@ def test_can_update_next_of_kin(mock_get_essential_details, api_session):
         relationship=test_data.get("relationship"),
         gender=test_data.get("gender")
     )
-    assert response.data == json_responses.UPDATE_NOK_RESPONSE and response.status_code == 200
     account.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/fake_id/nok",
@@ -117,9 +109,9 @@ def test_can_update_next_of_kin(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_update_profile(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.UPDATE_PROFILE_RESPONSE, status_code=200)
+    mock_get_essential_details.return_value = MagicMock()
     test_data = { 'account_id': 'fake_id', 'first_name': 'Uchechukwu', 'last_name': 'Emmanuel', 'email': 'darlington@abc.com', 'gender': 'M', 'phone_number': '+2349054314310', 'date_of_birth': '1959-10-10' }
-    response = account.update_profile(
+    account.update_profile(
         account_id=test_data.get("account_id"),
         first_name=test_data.get("first_name"),
         last_name=test_data.get("last_name"),
@@ -129,7 +121,6 @@ def test_can_update_profile(mock_get_essential_details, api_session):
         date_of_birth=test_data.get("date_of_birth"),
 
     )
-    assert response.data == json_responses.UPDATE_PROFILE_RESPONSE and response.status_code == 200
     account.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/fake_id/profile",
@@ -140,14 +131,13 @@ def test_can_update_profile(mock_get_essential_details, api_session):
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_update_identity(mock_get_essential_details, api_session):
     account = Account(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.UPDATE_IDENTITY_RESPONSE, status_code=200)
+    mock_get_essential_details.return_value = MagicMock()
     test_data = { 'account_id': 'fake_id', 'identity_type': 'bvn', 'identity_value': '0123456789' }
-    response = account.update_identity(
+    account.update_identity(
         account_id=test_data.get("account_id"),
         identity_type=test_data.get("identity_type"),
         identity_value=test_data.get("identity_value"),
     )
-    assert response.data == json_responses.UPDATE_IDENTITY_RESPONSE and response.status_code == 200
     account.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/fake_id/identity",

@@ -3,16 +3,14 @@ from embed import errors
 from unittest.mock import MagicMock, patch
 import json
 import pytest
-from tests.responses import json_responses
 
 
 
 @patch('embed.common.APIResponse.get_essential_details')
 def test_can_get_stocks(mock_get_essential_details, api_session):
     trade = Trade(api_session)
-    mock_get_essential_details.return_value = MagicMock(data=json_responses.GET_STOCKS_RESPONSE, status_code=200)
-    response = trade.get_stocks()
-    assert response.data == json_responses.GET_STOCKS_RESPONSE and response.status_code == 200
+    mock_get_essential_details.return_value = MagicMock()
+    trade.get_stocks()
     trade.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/stocks/assets",

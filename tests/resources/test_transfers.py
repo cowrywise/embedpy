@@ -3,7 +3,6 @@ from embed import errors
 from unittest.mock import MagicMock, patch
 import json
 import pytest
-from tests.responses import json_responses
 
 
 
