@@ -20,6 +20,16 @@ class Transfer(APIResponse):
         url = self.base_url + "transfers"
         return self.get_essential_details(method, url)
 
+    def get_deposits(self):
+        method = "GET"
+        url = self.base_url + "deposits"
+        return self.get_essential_details(method, url)
+
+    def get_withdrawals(self):
+        method = "GET"
+        url = self.base_url + "withdrawals"
+        return self.get_essential_details(method, url)
+
     def get_transfer(self, transfer_id):
         method = "GET"
         url = self.base_url + f"transfers/{transfer_id}"
