@@ -40,6 +40,7 @@ class APIResponse(HTTPClient):
         else:
             self.kwargs["verify"] = False
 
+        self._content, self._status_code = None, None
         try:
             try:
                 result = requests.request(
@@ -50,8 +51,6 @@ class APIResponse(HTTPClient):
                     timeout=self.TIMEOUT,
                     **self.kwargs,
                 )
-                print(result.request.headers)
-                print(result.request.url)
             except TypeError as _exc:
                 raise EmbedError(f"Error encountered: {_exc}")
 
