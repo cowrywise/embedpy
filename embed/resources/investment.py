@@ -14,19 +14,17 @@ class Investment(APIResponse):
         self.token = api_session.token
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def get_investments(self):
+    def get_investments(self, asset_type=None):
         method = "GET"
-        url = self.base_url + "investments"
+        if asset_type:
+            url = self.base_url + f"investments?asset_type={asset_type}"
+        else:
+            url = self.base_url + "investments"
         return self.get_essential_details(method, url)
 
     def get_investment(self, investment_id):
         method = "GET"
         url = self.base_url + f"investments/{investment_id}"
-        return self.get_essential_details(method, url)
-
-    def get_filtered_investments(self, asset_type):
-        method = "GET"
-        url = self.base_url + f"investments?asset_type={asset_type}"
         return self.get_essential_details(method, url)
 
     def create_investment(self, **kwargs):
