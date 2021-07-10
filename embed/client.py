@@ -109,3 +109,8 @@ class Client(object):
     @property
     def wallets(self):
         return self._wallets
+
+    @property
+    def refresh(self):
+        self._session = APISession(self._base_url, self._client_id,
+                                   self._client_secret, self._api_version)

@@ -15,20 +15,15 @@ class Asset(APIResponse):
             "Authorization": f"Bearer {self.token}"
         })
 
-    def get_assets(self):
+    def get_assets(self, asset_type=None):
         """
         Get all the known assets
         """
         method = "GET"
-        url = self.base_url + "assets"
-        return self.get_essential_details(method, url)
-
-    def get_filtered_assets(self, asset_type):
-        """
-        Filter assets by type:  tbills, mutual-fund, index
-        """
-        method = "GET"
-        url = self.base_url + f"assets?asset_type={asset_type}"
+        if asset_type:
+            url = self.base_url + f"assets?asset_type={asset_type}"
+        else:
+            url = self.base_url + "assets"
         return self.get_essential_details(method, url)
 
     def get_asset(self, asset_id):
