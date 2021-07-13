@@ -50,19 +50,12 @@ client.accounts.create_account(
    email= "mans_not_hot@gmaili.com
 )
 ```
-#### Fetch Assets
-```python
-# You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes (Asset collections)
-client.assets.get_assets()
---
-client.indexes.get_indexes()
-```
 
 #### Create Investments
 ```python
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
-client.assets.get_assets()
+client.assets.get_assets() or client.indexes.get_indexes()
 
 # Create an investment with a given asset code
 client.investments.create_investment(
