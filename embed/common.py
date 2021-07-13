@@ -28,7 +28,7 @@ class APIResponse(HTTPClient):
         }
         super(APIResponse, self).__init__()
 
-    def  get_essential_details(self, method, url, payload=None):
+    def get_essential_details(self, method, url, payload=None):
         self._response, self._status = self.request(
             method, url, self._headers, post_data=payload
         )

@@ -10,7 +10,6 @@ from embed.resources.saving import Saving
 from embed.resources.trade import Trade
 from embed.resources.transaction import Transaction
 from embed.resources.wallet import Wallet
-from embed.resources.transfer import Transfer
 from embed.common import APISession
 
 
@@ -64,7 +63,6 @@ class Client(object):
         self._transactions = Transaction(self._session)
         self._prices = Price(self._session)
         self._wallets = Wallet(self._session)
-        self._transfers = Transfer(self._session)
 
     @property
     def access_token(self):
@@ -95,10 +93,6 @@ class Client(object):
         return self._trades
 
     @property
-    def transfers(self):
-        return self._transfers
-
-    @property
     def transactions(self):
         return self._transactions
 
@@ -109,8 +103,3 @@ class Client(object):
     @property
     def wallets(self):
         return self._wallets
-
-    @property
-    def refresh(self):
-        self._session = APISession(self._base_url, self._client_id,
-                                   self._client_secret, self._api_version)

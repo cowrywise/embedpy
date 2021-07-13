@@ -22,7 +22,7 @@ def test_can_get_assets_by_filter(mock_get_essential_details, api_session):
     asset = Asset(api_session)
     mock_get_essential_details.return_value = MagicMock()
     test_data = {"asset_type": "mutual-fund"}
-    asset.get_filtered_assets(
+    asset.get_assets(
         asset_type=test_data.get("asset_type")
     )
     asset.get_essential_details.assert_called_with(

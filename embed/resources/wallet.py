@@ -42,3 +42,20 @@ class Wallet(APIResponse):
         url = self.base_url + "wallets"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    def transfer(self, **kwargs):
+        required = ["wallet_id", "product_code", "amount"]
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
+        if "idempotency_key" in kwargs.keys():
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
+
+        wallet_id = kwargs.pop("wallet_id")
+        method = "POST"
+        url = self.base_url + f"wallets/{wallet_id}/transfers"
+        payload = json.dumps(kwargs)
+        return self.get_essential_details(method, url, payload)

@@ -32,12 +32,11 @@ class Saving(APIResponse):
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def get_savings(self):
+    def get_savings(self, savings_id=None):
         method = "GET"
-        url = self.base_url + "savings"
+        if savings_id:
+            url = self.base_url + f"savings/{savings_id}"
+        else:
+            url = self.base_url + "savings"
         return self.get_essential_details(method, url)
 
-    def get_individual_savings(self, savings_id):
-        method = "GET"
-        url = self.base_url + f"savings/{savings_id}"
-        return self.get_essential_details(method, url)

@@ -27,7 +27,7 @@ class Investment(APIResponse):
         url = self.base_url + f"investments/{investment_id}"
         return self.get_essential_details(method, url)
 
-    def create_investment(self, **kwargs):
+    def create(self, **kwargs):
         required = ["account_id", "asset_code"]
         for key in required:
             if key not in kwargs.keys():
@@ -43,7 +43,7 @@ class Investment(APIResponse):
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def liquidate_investment(self, **kwargs):
+    def liquidate(self, **kwargs):
 
         required = ["investment_id", "units"]
         for key in required:
