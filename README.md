@@ -9,12 +9,12 @@ See the [Embed API docs](developer.cowrywise.com).
 Install the package directly via git
 
 ```python
-pip install git+https://github.com/cowrywise/embed-python.git
+pip install git+https://github.com/cowrywise/embedpy.git
 ```
 You could also install the library via pypi using the pip package manager.
 
 ```python
-$ pip install cowrywise-embed
+$ pip install embedpy
 ```
 
 ### Requirements
