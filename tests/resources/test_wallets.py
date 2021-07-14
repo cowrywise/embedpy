@@ -54,7 +54,7 @@ def test_can_transfer(mock_get_essential_details, api_session):
     )
     wallet.get_essential_details.assert_called_with(
         "POST",
-        f"{api_session.base_url}/api/{api_session.api_version}/wallets/fake-id/transfers",
+        f"{api_session.base_url}/api/{api_session.api_version}/wallets/fake-id/transfer",
         json.dumps({
             "product_code": "PRCD",
             "amount": "100000"}

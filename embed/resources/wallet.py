@@ -56,6 +56,6 @@ class Wallet(APIResponse):
 
         wallet_id = kwargs.pop("wallet_id")
         method = "POST"
-        url = self.base_url + f"wallets/{wallet_id}/transfers"
+        url = self.base_url + f"wallets/{wallet_id}/transfer"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
