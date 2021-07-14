@@ -14,11 +14,11 @@ pip install git+https://github.com/cowrywise/embed-python.git
 You could also install the library via pypi using the pip package manager.
 
 ```python
-$ pip install embed (not yet)
+$ pip install cowrywise-embed
 ```
 
 ### Requirements
-- Python3.8+
+- Python3+
 
 ## Usage
 To get started, signup for developer credentials on [Embed Dashboard](https://embed.cowrywise.com). Once you signup, you can retrieve

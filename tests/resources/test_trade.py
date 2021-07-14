@@ -5,8 +5,7 @@ import json
 import pytest
 
 
-
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_stocks(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -16,7 +15,8 @@ def test_can_get_stocks(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/stocks/assets",
     )
 
-@patch('embed.common.APIResponse.get_essential_details')
+
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_stocks(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -26,7 +26,8 @@ def test_can_get_stocks(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/stocks/SYBL/positions?account_id=fake-id",
     )
 
-@patch('embed.common.APIResponse.get_essential_details')
+
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_orders(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -37,7 +38,7 @@ def test_can_get_orders(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_profile(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -48,7 +49,7 @@ def test_can_get_profile(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_position(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -59,47 +60,61 @@ def test_can_get_position(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_buy_stock(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    test_data = {"account_id": "fake-id", "symbol": "sym", "amount": 200, "side":"side", "the_type": "type", "time_in_force": "tif"}
+    test_data = {
+        "account_id": "fake-id",
+        "symbol": "sym",
+        "amount": 200,
+        "side": "side",
+        "the_type": "type",
+        "time_in_force": "tif",
+    }
     trade.buy_stock(
         account_id=test_data.get("account_id"),
         symbol=test_data.get("symbol"),
         amount=test_data.get("amount"),
         side=test_data.get("side"),
         the_type=test_data.get("the_type"),
-        time_in_force=test_data.get("time_in_force")
-        )
+        time_in_force=test_data.get("time_in_force"),
+    )
     trade.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/stocks/buy",
-        json.dumps(test_data)
+        json.dumps(test_data),
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_sell_stock(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    test_data = {"account_id": "fake-id", "symbol": "sym", "amount": 200, "side":"side", "the_type": "type", "time_in_force": "tif"}
+    test_data = {
+        "account_id": "fake-id",
+        "symbol": "sym",
+        "amount": 200,
+        "side": "side",
+        "the_type": "type",
+        "time_in_force": "tif",
+    }
     trade.sell_stock(
         account_id=test_data.get("account_id"),
         symbol=test_data.get("symbol"),
         amount=test_data.get("amount"),
         side=test_data.get("side"),
         the_type=test_data.get("the_type"),
-        time_in_force=test_data.get("time_in_force")
-        )
+        time_in_force=test_data.get("time_in_force"),
+    )
     trade.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/stocks/sell",
-        json.dumps(test_data)
+        json.dumps(test_data),
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_close_all_positions(mock_get_essential_details, api_session):
     trade = Trade(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -109,13 +124,3 @@ def test_can_close_all_positions(mock_get_essential_details, api_session):
         "DELETE",
         f"{api_session.base_url}/api/{api_session.api_version}/stocks/positions?account_id=fake-id",
     )
-
-
-
-
-
-
-
-
-
-

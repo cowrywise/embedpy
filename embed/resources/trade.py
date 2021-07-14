@@ -12,9 +12,7 @@ class Trade(APIResponse):
         super(Trade, self).__init__()
         self.base_url = f"{api_session.base_url}/api/{api_session.api_version}/"
         self.token = api_session.token
-        self._headers.update({
-            "Authorization": f"Bearer {self.token}"
-        })
+        self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def get_stocks(self):
         method = "GET"
@@ -27,8 +25,8 @@ class Trade(APIResponse):
             if key not in kwargs.keys():
                 raise ValidationError(f"{key} is required.")
 
-        account_id = kwargs.get('account_id')
-        stock_symbol = kwargs.get('stock_symbol')
+        account_id = kwargs.get("account_id")
+        stock_symbol = kwargs.get("stock_symbol")
 
         method = "GET"
         url = self.base_url + f"stocks/{stock_symbol}/positions?account_id={account_id}"
@@ -50,13 +48,22 @@ class Trade(APIResponse):
         return self.get_essential_details(method, url)
 
     def buy_stock(self, **kwargs):
-        required = ["account_id", "symbol", "amount", "side", "the_type", "time_in_force"]
+        required = [
+            "account_id",
+            "symbol",
+            "amount",
+            "side",
+            "the_type",
+            "time_in_force",
+        ]
         for key in required:
             if key not in kwargs.keys():
                 raise ValidationError(f"{key} is required.")
 
         if "idempotency_key" in kwargs.keys():
-            self._headers.update({"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))})
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
 
         kwargs.update({"amount": int(kwargs.get("amount"))})
         method = "POST"
@@ -65,13 +72,22 @@ class Trade(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def sell_stock(self, **kwargs):
-        required = ["account_id", "symbol", "amount", "side", "the_type", "time_in_force"]
+        required = [
+            "account_id",
+            "symbol",
+            "amount",
+            "side",
+            "the_type",
+            "time_in_force",
+        ]
         for key in required:
             if key not in kwargs.keys():
                 raise ValidationError(f"{key} is required.")
 
         if "idempotency_key" in kwargs.keys():
-            self._headers.update({"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))})
+            self._headers.update(
+                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+            )
 
         kwargs.update({"amount": int(kwargs.get("amount"))})
         method = "POST"

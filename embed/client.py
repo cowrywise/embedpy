@@ -51,8 +51,9 @@ class Client(object):
         self._api_version = api_version or self.API_VERSION
         self._base_url = base_url or self.BASE_API_URI
 
-        self._session = APISession(self._base_url, self._client_id,
-                                   self._client_secret, self._api_version)
+        self._session = APISession(
+            self._base_url, self._client_id, self._client_secret, self._api_version
+        )
 
         self._accounts = Account(self._session)
         self._assets = Asset(self._session)

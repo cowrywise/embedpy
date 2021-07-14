@@ -39,4 +39,3 @@ class Saving(APIResponse):
         else:
             url = self.base_url + "savings"
         return self.get_essential_details(method, url)
-

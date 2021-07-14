@@ -5,44 +5,53 @@ import json
 import pytest
 
 
-
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_savings(mock_get_essential_details, api_session):
     savings = Saving(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    test_data = {"account_id": "fake-account-id", "days": "30", "interest_enabled": True, "currency_code": "NGN"}
+    test_data = {
+        "account_id": "fake-account-id",
+        "days": "30",
+        "interest_enabled": True,
+        "currency_code": "NGN",
+    }
     savings.create_savings(
         account_id=test_data.get("account_id"),
         days=test_data.get("days"),
         interest_enabled=test_data.get("interest_enabled"),
-        currency_code=test_data.get("currency_code")
+        currency_code=test_data.get("currency_code"),
     )
     savings.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/savings",
-        json.dumps(test_data)
+        json.dumps(test_data),
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_savings(mock_get_essential_details, api_session):
     savings = Saving(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    test_data = {"account_id": "fake-account-id", "days": "30", "interest_enabled": True, "currency_code": "NGN"}
+    test_data = {
+        "account_id": "fake-account-id",
+        "days": "30",
+        "interest_enabled": True,
+        "currency_code": "NGN",
+    }
     savings.create_savings(
         account_id=test_data.get("account_id"),
         days=test_data.get("days"),
         interest_enabled=test_data.get("interest_enabled"),
-        currency_code=test_data.get("currency_code")
+        currency_code=test_data.get("currency_code"),
     )
     savings.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/savings",
-        json.dumps(test_data)
+        json.dumps(test_data),
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_savings(mock_get_essential_details, api_session):
     savings = Saving(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -53,7 +62,7 @@ def test_can_get_savings(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_single_savings(mock_get_essential_details, api_session):
     savings = Saving(api_session)
     mock_get_essential_details.return_value = MagicMock()

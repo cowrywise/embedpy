@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import json
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_wallets(mock_get_essential_details, api_session):
     wallet = Wallet(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -14,7 +14,7 @@ def test_can_get_wallets(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_single_wallet(mock_get_essential_details, api_session):
     wallet = Wallet(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -25,20 +25,23 @@ def test_can_get_single_wallet(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_wallet(mock_get_essential_details, api_session):
     wallet = Wallet(api_session)
     mock_get_essential_details.return_value = MagicMock()
     test_data = {"account_id": "fake-id", "currency_code": "NGN"}
-    wallet.create_wallet(account_id=test_data.get("account_id"), currency_code=test_data.get("currency_code"))
+    wallet.create_wallet(
+        account_id=test_data.get("account_id"),
+        currency_code=test_data.get("currency_code"),
+    )
     wallet.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/wallets",
-        json.dumps(test_data)
+        json.dumps(test_data),
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_transfer(mock_get_essential_details, api_session):
     wallet = Wallet(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -55,7 +58,5 @@ def test_can_transfer(mock_get_essential_details, api_session):
     wallet.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/wallets/fake-id/transfer",
-        json.dumps({
-            "product_code": "PRCD",
-            "amount": "100000"}
-        ))
+        json.dumps({"product_code": "PRCD", "amount": "100000"}),
+    )

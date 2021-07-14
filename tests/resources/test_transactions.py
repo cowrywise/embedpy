@@ -2,7 +2,7 @@ from embed.resources.transaction import Transaction
 from unittest.mock import MagicMock, patch
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_transfers(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -13,7 +13,7 @@ def test_can_get_transfers(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_deposits(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -24,7 +24,7 @@ def test_can_get_deposits(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_withdrawals(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -35,7 +35,7 @@ def test_can_get_withdrawals(mock_get_essential_details, api_session):
     )
 
 
-@patch('embed.common.APIResponse.get_essential_details')
+@patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_single_transfer(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
