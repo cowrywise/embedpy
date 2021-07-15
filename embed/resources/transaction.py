@@ -47,8 +47,9 @@ class Transaction(APIResponse):
         else:
             url = self.base_url + "transfers"
         if query_path:
-            url = f"{url}+?+{query_path}"
+            url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
+
 
     def get_deposits(self):
         method = "GET"
