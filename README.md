@@ -17,7 +17,7 @@ pip install git+https://github.com/cowrywise/embedpy.git
 You could also install the library via pypi using the pip package manager.
 
 ```python
-$ pip install embedpy
+$ pip install -U embedpy
 ```
 
 ### Requirements
