@@ -4,7 +4,7 @@ The Embed Python library provides an easy access to the Embed Investment API by 
 
 ## Documentation
 
-See the [Embed API docs](https://developer.cowrywise.com).
+See the [Embed API docs](https://developers.cowrywise.com).
 
 ## Installation
 
