@@ -53,7 +53,7 @@ client = Client(client_id='****', client_secret='****', base_url="https://***.co
 client.accounts.create_account(
    first_name= "Mansa",
    last_name= "Musa",
-   email= "mans_not_hot@gmaili.com
+   email= "mans_not_hot@gmail.com"
 )
 ```
 
