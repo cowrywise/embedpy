@@ -36,7 +36,7 @@ def test_create_account_with_zero_params_raises_validation_error(
 def test_can_get_accounts(mock_get_essential_details, api_session):
     account = Account(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    account.get_accounts()
+    account.list_accounts()
     account.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/accounts",

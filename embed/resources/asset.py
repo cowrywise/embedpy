@@ -13,15 +13,15 @@ class Asset(APIResponse):
         self.token = api_session.token
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def get_assets(self, asset_type=None):
+    def list_assets(self, **kwargs):
         """
         Get all the known assets
         """
+        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
         method = "GET"
-        if asset_type:
-            url = self.base_url + f"assets?asset_type={asset_type}"
-        else:
-            url = self.base_url + "assets"
+        url = self.base_url + "assets"
+        if query_path:
+            url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
 
     def get_asset(self, asset_id):

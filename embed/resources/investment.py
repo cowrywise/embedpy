@@ -14,12 +14,12 @@ class Investment(APIResponse):
         self.token = api_session.token
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def get_investments(self, asset_type=None):
+    def list_investments(self, **kwargs):
+        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
         method = "GET"
-        if asset_type:
-            url = self.base_url + f"investments?asset_type={asset_type}"
-        else:
-            url = self.base_url + "investments"
+        url = self.base_url + "investments"
+        if query_path:
+            url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
 
     def get_investment(self, investment_id):
@@ -27,7 +27,7 @@ class Investment(APIResponse):
         url = self.base_url + f"investments/{investment_id}"
         return self.get_essential_details(method, url)
 
-    def create(self, **kwargs):
+    def create_investment(self, **kwargs):
         required = ["account_id", "asset_code"]
         for key in required:
             if key not in kwargs.keys():
@@ -37,14 +37,12 @@ class Investment(APIResponse):
             self._headers.update(
                 {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
             )
-
         method = "POST"
         url = self.base_url + "investments"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def liquidate(self, **kwargs):
-
+    def liquidate_investment(self, **kwargs):
         required = ["investment_id", "units"]
         for key in required:
             if key not in kwargs.keys():

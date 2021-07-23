@@ -29,9 +29,14 @@ class Account(APIResponse):
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
 
-    def get_accounts(self):
+    def list_accounts(self, **kwargs):
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "accounts"
+        if query_path:
+            url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
 
     def get_account(self, account_id):

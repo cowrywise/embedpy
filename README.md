@@ -62,12 +62,12 @@ client.accounts.create_account(
 ```python
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
-client.assets.get_assets() or client.indexes.get_indexes()
+client.assets.list_assets() or client.indexes.get_indexes()
 
 # Create an investment with a given asset code
 client.investments.create_investment(
-  account_id="8ddfb5ea9fe440f9a7d086b7c8f14abd",
-  asset_code="AST-FUND-1655862279",
+    account_id="8ddfb5ea9fe440f9a7d086b7c8f14abd",
+    asset_code="AST-FUND-1655862279",
 )
 ```
 

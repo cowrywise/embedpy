@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 def test_can_get_transfers(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.get_transfers()
+    transaction.list_transfers()
     transaction.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/transfers",
@@ -17,7 +17,7 @@ def test_can_get_transfers(mock_get_essential_details, api_session):
 def test_can_get_deposits(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.get_deposits()
+    transaction.list_deposits()
     transaction.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/deposits",
@@ -28,7 +28,7 @@ def test_can_get_deposits(mock_get_essential_details, api_session):
 def test_can_get_withdrawals(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.get_withdrawals()
+    transaction.list_withdrawals()
     transaction.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/withdrawals",
@@ -39,8 +39,30 @@ def test_can_get_withdrawals(mock_get_essential_details, api_session):
 def test_can_get_single_transfer(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.get_transfers("fake-id")
+    transaction.get_transfer("fake-id")
     transaction.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/transfers/fake-id",
+    )
+
+
+@patch("embed.common.APIResponse.get_essential_details")
+def test_can_get_single_deposit(mock_get_essential_details, api_session):
+    transaction = Transaction(api_session)
+    mock_get_essential_details.return_value = MagicMock()
+    transaction.get_deposit("fake-id")
+    transaction.get_essential_details.assert_called_with(
+        "GET",
+        f"{api_session.base_url}/api/{api_session.api_version}/deposits/fake-id",
+    )
+
+
+@patch("embed.common.APIResponse.get_essential_details")
+def test_can_get_single_withdrawal(mock_get_essential_details, api_session):
+    transaction = Transaction(api_session)
+    mock_get_essential_details.return_value = MagicMock()
+    transaction.get_withdrawal("fake-id")
+    transaction.get_essential_details.assert_called_with(
+        "GET",
+        f"{api_session.base_url}/api/{api_session.api_version}/withdrawals/fake-id",
     )

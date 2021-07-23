@@ -7,7 +7,7 @@ import json
 def test_can_get_wallets(mock_get_essential_details, api_session):
     wallet = Wallet(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    wallet.get_wallets()
+    wallet.list_wallets()
     wallet.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/wallets",

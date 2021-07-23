@@ -14,9 +14,14 @@ class Wallet(APIResponse):
         self.token = api_session.token
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def get_wallets(self):
+    def list_wallets(self, **kwargs):
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "wallets"
+        if query_path:
+            url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
 
     def get_wallet(self, wallet_id):

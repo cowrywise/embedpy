@@ -12,25 +12,41 @@ class Transaction(APIResponse):
         self.token = api_session.token
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def get_transfers(self, transfer_id=None, **kwargs):
-
-        # check that a query param is not empty and join it to the string.
+    def list_transfers(self, **kwargs):
         query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
         method = "GET"
-        if transfer_id:
-            url = self.base_url + f"transfers/{transfer_id}"
-        else:
-            url = self.base_url + "transfers"
+        url = self.base_url + "transfers"
         if query_path:
             url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
 
-    def get_deposits(self):
+    def get_transfer(self, transfer_id):
         method = "GET"
-        url = self.base_url + "deposits"
+        url = self.base_url + f"transfers/{transfer_id}"
         return self.get_essential_details(method, url)
 
-    def get_withdrawals(self):
+    def list_deposits(self, **kwargs):
+        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
+        method = "GET"
+        url = self.base_url + "deposits"
+        if query_path:
+            url = f"{url}?{query_path}"
+        return self.get_essential_details(method, url)
+
+    def get_deposit(self, deposit_id):
+        method = "GET"
+        url = self.base_url + f"deposits/{deposit_id}"
+        return self.get_essential_details(method, url)
+
+    def list_withdrawals(self, **kwargs):
+        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
         method = "GET"
         url = self.base_url + "withdrawals"
+        if query_path:
+            url = f"{url}?{query_path}"
+        return self.get_essential_details(method, url)
+
+    def get_withdrawal(self, withdrawal_id):
+        method = "GET"
+        url = self.base_url + f"withdrawals/{withdrawal_id}"
         return self.get_essential_details(method, url)
