@@ -62,7 +62,7 @@ client.accounts.create_account(
 ```python
 # You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
 # Get all available assets to invest in
-client.assets.list_assets() or client.indexes.get_indexes()
+client.assets.list_assets() or client.indexes.list_indexes()
 
 # Create an investment with a given asset code
 client.investments.create_investment(
