@@ -9,7 +9,7 @@ import pytest
 def test_can_get_indexes(mock_get_essential_details, api_session):
     index = Index(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    index.get_indexes()
+    index.list_indexes()
     index.get_essential_details.assert_called_with(
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/indexes",
@@ -33,7 +33,7 @@ def test_can_create_custom_index(mock_get_essential_details, api_session):
     mock_get_essential_details.return_value = MagicMock()
     test_data = {
         "account_id": "88363e3c38ee4007b83c503cdb912fe0",
-        "name": "Dewcs",
+        "name": "My Index",
         "description": "A custom index containing x y z assets",
         "allocations": [
             {"asset_code": "AST-FUND-174669468", "weight": 50},
