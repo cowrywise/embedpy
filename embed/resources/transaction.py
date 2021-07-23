@@ -13,7 +13,9 @@ class Transaction(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_transfers(self, **kwargs):
-        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "transfers"
         if query_path:
@@ -26,7 +28,9 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_deposits(self, **kwargs):
-        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "deposits"
         if query_path:
@@ -39,7 +43,9 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_withdrawals(self, **kwargs):
-        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "withdrawals"
         if query_path:

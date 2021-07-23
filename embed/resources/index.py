@@ -15,7 +15,9 @@ class Index(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_indexes(self, **kwargs):
-        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "indexes"
         if query_path:

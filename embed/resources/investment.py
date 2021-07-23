@@ -15,7 +15,9 @@ class Investment(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_investments(self, **kwargs):
-        query_path = "&".join("{}={}".format(key, value) for key, value in kwargs.items())
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
         method = "GET"
         url = self.base_url + "investments"
         if query_path:
