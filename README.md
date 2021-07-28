@@ -46,43 +46,33 @@ from embed.client import Client
 client = Client(client_id='****', client_secret='****', base_url="https://***.cowrywise.com")
 ```
 
-#### Create Accounts
+## Embed API REST Methods
 
-```python
-# Create investment account for your customer
-client.accounts.create_account(
-   first_name= "Mansa",
-   last_name= "Musa",
-   email= "mans_not_hot@gmail.com"
-)
-```
+| Rest Method                                                      | Endpoint          |
+|------------------------------------------------------------------|-------------------|
+| create_account(first_name=None, last_name=None, email=None)      | `POST /accounts`    |
+| get_account(account_id)                                          | `GET /accounts/:id` |
+| update_next_of_kin(account_id=None, email=None, first_name=None,/last_name=None, phone_number=None, relationship=None, gender=None) | `POST /accounts/:id/nok` |
+| get_portfolio(account_id)                                        | `GET /accounts/:id/portfolio` |
+| get_asset(asset_id)                                        | `GET /assets/:id/` |
+| list_assets(country=None, asset_type=None)                 | `GET /assets?country=None&asset_type=None` |
+| get_index(index_id)                 | `GET /indexes/:id` |
+| create_custom_index(account_id=None, name=None, description=None, allocations=None) | `POST /indexes` |
+| modify_custom_index(account_id=None, index_id=None, allocations=None)  | `PUT /indexes/:index_id` |
+| get_investment(investment_id)  | `GET /investments/:id` |
+| create_investment(account_id=None, asset_code=None)  | `POST /investments` |
+| liquidate_investment(investment_id=None, units=None)  | `POST /investments/:id` |
+| get_price_history(asset_id=None, from_date=None, to_date=None)  | `GET /prices?asset_id=None&from_date=None&to_date=None` |
+| create_savings(account_id=None, days=None, interest_enabled=None, currency_code=None)  | `POST /savings` |
+| buy_stock(account_id=None, symbol=None, amount=None, side=None, the_type=None, time_in_force=None)  | `POST /stocks/buy` |
+| sell_stock(account_id=None, symbol=None, amount=None, side=None, the_type=None, time_in_force=None)  | `POST /stocks/sell` |
+| list_transfers(account_id=None, email=None, from_date=None, to_date=None)  | `GET /transfers/:id?email=None&from_date=None&to_date=None` |
+| get_deposit(deposit_id)  | `GET /deposits/:id` | 
+| create_wallet(account_id=None, currency_code=None)  | `POST /wallets` |
+| transfer(wallet_id=None, product_code=None, amount=None)  | `POST /wallets/:wallet_id/transfer` |
+| get_wallet(wallet_id)  | `GET /wallets/:wallet_id` |
 
-#### Create Investments
-
-```python
-# You can invest in Assets (Mutual funds, Tbills, Stocks) or Indexes
-# Get all available assets to invest in
-client.assets.list_assets() or client.indexes.list_indexes()
-
-# Create an investment with a given asset code
-client.investments.create_investment(
-    account_id="8ddfb5ea9fe440f9a7d086b7c8f14abd",
-    asset_code="AST-FUND-1655862279",
-)
-```
-
-#### Transfer funds
-
-```python
-# Transfer funds from a wallet to a savings/investments with product code
-client.wallets.transfer(
-  wallet_id='ec45bb798f244c75b9432ec19256316b',
-  product_code='PRCDE1297453250',
-  amount=50000, #kobo/cents
-})
-```
-
-Check the [API reference](https://developers.cowrywise.com/reference) document for more examples.
+Check the [API reference](https://developers.cowrywise.com/reference) document for all resources and their respective endpoints.
 
 # Contributions
 
