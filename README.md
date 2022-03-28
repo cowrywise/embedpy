@@ -26,8 +26,7 @@ $ pip install -U embedpy
 
 ## Usage
 
-To get started, signup for developer credentials on [Embed Dashboard](https://embed.cowrywise.com). Once you signup, you can retrieve
-you client_id and client_secret keys from the developer dashboard. Set your credentials in environment variables.
+To get started, sign up for your developer credentials on the [Embed Dashboard](https://embed.cowrywise.com). Once you have signed up, you can retrieve your `client_id` and `client_secret` keys from the developer dashboard. Set your credentials in the environment variables before creating an instance of the Embed Client.
 
 ```python
 # Set environment variables
@@ -39,7 +38,7 @@ from embed.client import Client
 client = Client()
 ```
 
-Alternatively, instantiate the Embed Client with your credentials. You can specify a base url during this instantiation. This is optional and defaults to the sandbox base url.
+Alternatively, you can use your credentials to instantiate the Embed Client. During this instantiation, you can specify a base URL. This is an optional parameter that defaults to the sandbox base URL.
 
 ```python
 from embed.client import Client
