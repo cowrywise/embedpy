@@ -51,6 +51,23 @@ class Account(APIResponse):
         url = self.base_url + f"accounts/{account_id}/portfolio"
         return self.get_essential_details(method, url)
 
+    def get_portfolio_performance(self, **kwargs):
+        """
+        Get the performance of a portfolio
+        """
+        required = ["account_id"]
+        self._validate_kwargs(required, kwargs)
+
+        kwargs["currency"] = kwargs.pop("currency", "NGN")
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
+        method = "GET"
+        url = self.base_url + f"accounts/{kwargs.get('account_id')}/portfolio/performance"
+        if query_path:
+            url = f"{url}?{query_path}"
+        return self.get_essential_details(method, url)
+
     def update_address(self, **kwargs):
         """
         Update the address of an account
@@ -123,6 +140,52 @@ class Account(APIResponse):
 
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    def add_bank_account(self, **kwargs):
+        """
+        Add a bank account to profile.
+        The bank_code can be gotten from calling get_banks() of Misc
+        """
+        required = ["account_id", "bank_code", "account_number"]
+        self._validate_kwargs(required, kwargs)
+
+        method = "POST"
+        account_id = kwargs.get("account_id")
+        url = self.base_url + f"accounts/{account_id}/bank"
+
+        payload = json.dumps(kwargs)
+        return self.get_essential_details(method, url, payload)
+
+    def get_risk_profile_questions(self):
+        """
+        Get questions to used to determine risk profile of user
+        """
+        method = "GET"
+        url = self.base_url + f"accounts/risk-profile-questions"
+        return self.get_essential_details(method, url)
+
+    def update_risk_profile(self, **kwargs):
+        """
+        Post answers to risk profile questions and get risk score
+        """
+        required = ["account_id", "q1", "q2", "q3", "q4", "q5", "q6"]
+        self._validate_kwargs(required, kwargs)
+
+        method = "POST"
+        account_id = kwargs.get("account_id")
+        url = self.base_url + f"accounts/{account_id}/risk-profile"
+
+        kwargs = {int(k.replace("q", "")): kwargs.pop(k) for k in required[1:]}
+        payload = json.dumps(kwargs)
+        return self.get_essential_details(method, url, payload)
+
+    def get_risk_profile(self, account_id):
+        """
+        Get a customer's risk profile
+        """
+        method = "GET"
+        url = self.base_url + f"accounts/{account_id}/risk-profile"
+        return self.get_essential_details(method, url)
 
     @staticmethod
     def _validate_kwargs(required, kwargs):
