@@ -16,9 +16,7 @@ class Account(APIResponse):
 
     def create_account(self, **kwargs):
         required = ["first_name", "last_name", "email"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
         if "idempotency_key" in kwargs.keys():
             self._headers.update(
                 {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
@@ -67,9 +65,7 @@ class Account(APIResponse):
             "state",
             "country",
         ]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         method = "POST"
         account_id = kwargs.get("account_id")
@@ -92,9 +88,7 @@ class Account(APIResponse):
             "relationship",
             "gender",
         ]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         method = "POST"
         account_id = kwargs.get("account_id")
@@ -109,9 +103,7 @@ class Account(APIResponse):
         Gender options: M or F
         """
         required = ["account_id"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         method = "POST"
         account_id = kwargs.get("account_id")
@@ -123,9 +115,7 @@ class Account(APIResponse):
     def update_identity(self, **kwargs):
 
         required = ["account_id", "identity_type", "identity_value"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         method = "POST"
         account_id = kwargs.get("account_id")
@@ -133,3 +123,10 @@ class Account(APIResponse):
 
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    @staticmethod
+    def _validate_kwargs(required, kwargs):
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
