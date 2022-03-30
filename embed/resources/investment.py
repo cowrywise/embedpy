@@ -61,3 +61,27 @@ class Investment(APIResponse):
 
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    def get_investment_holdings(self, investment_id):
+        """
+        For Indexes
+        """
+        method = "GET"
+        url = self.base_url + f"investments/{investment_id}/holdings"
+        return self.get_essential_details(method, url)
+
+    def get_investment_performance(self, investment_id):
+        """
+        Get investment performance timeseries
+        """
+        method = "GET"
+        url = self.base_url + f"investments/{investment_id}/performance"
+        return self.get_essential_details(method, url)
+
+    def get_investment_returns(self, investment_id):
+        """
+        Get investment performance timeseries
+        """
+        method = "GET"
+        url = self.base_url + f"investments/{investment_id}/returns"
+        return self.get_essential_details(method, url)
