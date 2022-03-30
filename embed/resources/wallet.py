@@ -32,9 +32,7 @@ class Wallet(APIResponse):
     def create_wallet(self, **kwargs):
 
         required = ["account_id", "currency_code"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         if "idempotency_key" in kwargs.keys():
             self._headers.update(
@@ -48,9 +46,7 @@ class Wallet(APIResponse):
 
     def transfer(self, **kwargs):
         required = ["wallet_id", "product_code", "amount"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         if "idempotency_key" in kwargs.keys():
             self._headers.update(
@@ -62,3 +58,9 @@ class Wallet(APIResponse):
         url = self.base_url + f"wallets/{wallet_id}/transfer"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    @staticmethod
+    def _validate_kwargs(required, kwargs):
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
