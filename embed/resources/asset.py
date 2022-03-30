@@ -17,9 +17,7 @@ class Asset(APIResponse):
         """
         Get all the known assets
         """
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + "assets"
         if query_path:
