@@ -35,6 +35,7 @@ class Index(APIResponse):
         return self.get_essential_details(method, url)
 
     def create_custom_index(self, **kwargs):
+        """TODO: future release"""
         required = ["account_id", "name", "description", "allocations"]
         for key in required:
             if key not in kwargs.keys():
@@ -51,6 +52,7 @@ class Index(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def modify_custom_index(self, **kwargs):
+        """TODO: future release"""
         required = ["account_id", "index_id"]
         for key in required:
             if key not in kwargs.keys():
