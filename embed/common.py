@@ -133,4 +133,4 @@ class APISession(APIResponse):
         return self._base_url
 
     def __str__(self):
-        return f"{self._base_url} - {self._token} - {self._api_version}"
+        return f"{self._base_url} - {self.token} - {self._api_version}"
