@@ -13,6 +13,17 @@ class Transaction(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_transfers(self, **kwargs):
+        """
+        Can filter by
+            - account_id ........... Investment account email
+            - email ................ Investment account email
+            - transfer_type ........ funding, liquidation, p2p, asset_payout
+            - from_date ............ Date in ISO8601 format e.g YYYY-MM-DD
+            - to_date .............. Date in ISO8601 format e.g YYYY-MM-DD
+            - status ............... pending, successful, failed
+            - asset_type ........... mutual-fund, crypto, tbills, wallet, savings, index
+            - currency ............. Currency code in ISO-4217 format
+        """
         query_path = "&".join(
             "{}={}".format(key, value) for key, value in kwargs.items()
         )

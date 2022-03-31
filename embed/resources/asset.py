@@ -15,7 +15,8 @@ class Asset(APIResponse):
 
     def list_assets(self, **kwargs):
         """
-        Get all the known assets
+        Get all the known assets. Can also filter by country by supplying
+        two-letter country code as "country" in kwarg
         """
         query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"

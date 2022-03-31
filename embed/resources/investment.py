@@ -15,6 +15,10 @@ class Investment(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_investments(self, **kwargs):
+        """
+        Gets a list of investments. Filter result by asset-type by supplying
+        the asset-type code as `asset_type` as kwarg
+        """
         query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + "investments"
