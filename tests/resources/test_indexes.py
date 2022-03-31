@@ -28,6 +28,7 @@ def test_can_get_index_assets(mock_get_essential_details, api_session):
 
 
 @patch("embed.common.APIResponse.get_essential_details")
+@pytest.mark.skip(reason="Custom Index creation not yet implemented")
 def test_can_create_custom_index(mock_get_essential_details, api_session):
     index = Index(api_session)
     mock_get_essential_details.return_value = MagicMock()
@@ -54,6 +55,7 @@ def test_can_create_custom_index(mock_get_essential_details, api_session):
 
 
 @patch("embed.common.APIResponse.get_essential_details")
+@pytest.mark.skip(reason="Custom Index creation not yet implemented")
 def test_can_modify_custom_index(mock_get_essential_details, api_session):
     index = Index(api_session)
     mock_get_essential_details.return_value = MagicMock()
