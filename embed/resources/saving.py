@@ -56,10 +56,7 @@ class Saving(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def get_savings_returns(
-        self,
-        savings_id,
-        start_date: str = None,
-        end_date: str = None
+        self, savings_id, start_date: str = None, end_date: str = None
     ):
         params = {}
         try:
@@ -70,7 +67,9 @@ class Saving(APIResponse):
                 datetime.strptime(end_date, "%Y-%m-%d")
                 params["end_date"] = end_date
         except Exception:
-            ValidationError(f"start_date and end_date should be in `YYYY-MM-DD` format.")
+            ValidationError(
+                f"start_date and end_date should be in `YYYY-MM-DD` format."
+            )
 
         method = "GET"
         url = self.base_url + f"savings/{savings_id}/returns"
@@ -80,10 +79,7 @@ class Saving(APIResponse):
         return self.get_essential_details(method, url)
 
     def get_savings_performance(
-        self,
-        savings_id,
-        start_date: str = None,
-        end_date: str = None
+        self, savings_id, start_date: str = None, end_date: str = None
     ):
         params = {}
         try:
@@ -94,7 +90,9 @@ class Saving(APIResponse):
                 datetime.strptime(end_date, "%Y-%m-%d")
                 params["end_date"] = end_date
         except Exception:
-            ValidationError(f"start_date and end_date should be in `YYYY-MM-DD` format.")
+            ValidationError(
+                f"start_date and end_date should be in `YYYY-MM-DD` format."
+            )
 
         method = "GET"
         url = self.base_url + f"savings/{savings_id}/performance"

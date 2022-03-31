@@ -14,8 +14,10 @@ class Misc(APIResponse):
 
     def get_banks(self, page=None, page_size=None):
         query_params = {}
-        if page: query_params["page"] = page
-        if page_size: query_params["page_size"] = page_size
+        if page:
+            query_params["page"] = page
+        if page_size:
+            query_params["page_size"] = page_size
 
         query_path = "&".join(f"{k}={v}" for k, v in query_params.items())
         method = "GET"
@@ -23,4 +25,3 @@ class Misc(APIResponse):
         if query_path:
             url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
-
