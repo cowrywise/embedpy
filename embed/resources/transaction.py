@@ -1,4 +1,5 @@
 from embed.common import APIResponse
+from embed.errors import ValidationError
 
 
 class Transaction(APIResponse):
@@ -54,6 +55,8 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_withdrawals(self, **kwargs):
+        required = ["account_id"]
+        self._validate_kwargs(required, kwargs)
         query_path = "&".join(
             "{}={}".format(key, value) for key, value in kwargs.items()
         )
@@ -67,3 +70,9 @@ class Transaction(APIResponse):
         method = "GET"
         url = self.base_url + f"withdrawals/{withdrawal_id}"
         return self.get_essential_details(method, url)
+
+    @staticmethod
+    def _validate_kwargs(required, kwargs):
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
