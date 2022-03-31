@@ -7,6 +7,9 @@ from embed.resources.index import Index
 from embed.resources.investment import Investment
 from embed.resources.price import Price
 from embed.resources.saving import Saving
+from embed.resources.settlement import Settlement
+from embed.resources.stock import Stock
+from embed.resources.stock_portfolio import StockPortfolio
 from embed.resources.trade import Trade
 from embed.resources.transaction import Transaction
 from embed.resources.misc import Misc
@@ -61,6 +64,9 @@ class Client(object):
         self._investments = Investment(self._session)
         self._indexes = Index(self._session)
         self._savings = Saving(self._session)
+        self._settlements = Settlement(self._session)
+        self._stocks = Stock(self._session)
+        self._stock_portfolios = StockPortfolio(self._session)
         self._trades = Trade(self._session)
         self._transactions = Transaction(self._session)
         self._prices = Price(self._session)
@@ -90,6 +96,18 @@ class Client(object):
     @property
     def savings(self):
         return self._savings
+
+    @property
+    def settlements(self):
+        return self._settlements
+
+    @property
+    def stocks(self):
+        return self._stocks
+
+    @property
+    def stock_portfolios(self):
+        return self._stock_portfolios
 
     @property
     def trades(self):
