@@ -63,7 +63,9 @@ class Account(APIResponse):
             "{}={}".format(key, value) for key, value in kwargs.items()
         )
         method = "GET"
-        url = self.base_url + f"accounts/{kwargs.get('account_id')}/portfolio/performance"
+        url = (
+            self.base_url + f"accounts/{kwargs.get('account_id')}/portfolio/performance"
+        )
         if query_path:
             url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
@@ -192,4 +194,3 @@ class Account(APIResponse):
         for key in required:
             if key not in kwargs.keys():
                 raise ValidationError(f"{key} is required.")
-
