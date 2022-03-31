@@ -1,4 +1,5 @@
 from embed.common import APIResponse
+from embed.errors import ValidationError
 
 
 class Transaction(APIResponse):
@@ -13,6 +14,17 @@ class Transaction(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_transfers(self, **kwargs):
+        """
+        Can filter by
+            - account_id ........... Investment account email
+            - email ................ Investment account email
+            - transfer_type ........ funding, liquidation, p2p, asset_payout
+            - from_date ............ Date in ISO8601 format e.g YYYY-MM-DD
+            - to_date .............. Date in ISO8601 format e.g YYYY-MM-DD
+            - status ............... pending, successful, failed
+            - asset_type ........... mutual-fund, crypto, tbills, wallet, savings, index
+            - currency ............. Currency code in ISO-4217 format
+        """
         query_path = "&".join(
             "{}={}".format(key, value) for key, value in kwargs.items()
         )
@@ -43,6 +55,8 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_withdrawals(self, **kwargs):
+        required = ["account_id"]
+        self._validate_kwargs(required, kwargs)
         query_path = "&".join(
             "{}={}".format(key, value) for key, value in kwargs.items()
         )
@@ -56,3 +70,9 @@ class Transaction(APIResponse):
         method = "GET"
         url = self.base_url + f"withdrawals/{withdrawal_id}"
         return self.get_essential_details(method, url)
+
+    @staticmethod
+    def _validate_kwargs(required, kwargs):
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")

@@ -13,7 +13,7 @@ class HTTPClient(object):
         self._status_code = None
 
     def request(self, method, url, headers, post_data=None):
-        raise NotImplementedError("HTTPClient subclasses need to implement`request`")
+        raise NotImplementedError("HTTPClient subclasses need to implement `request`")
 
 
 class APIResponse(HTTPClient):
@@ -133,4 +133,4 @@ class APISession(APIResponse):
         return self._base_url
 
     def __str__(self):
-        return f"{self._base_url} - {self._token} - {self._api_version}"
+        return f"{self._base_url} - {self.token} - {self._api_version}"

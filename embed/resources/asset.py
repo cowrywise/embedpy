@@ -1,4 +1,4 @@
-import json
+"""TODO: fix this; get data"""
 from embed.common import APIResponse
 
 
@@ -15,11 +15,10 @@ class Asset(APIResponse):
 
     def list_assets(self, **kwargs):
         """
-        Get all the known assets
+        Get all the known assets. Can also filter by country by supplying
+        two-letter country code as "country" in kwarg
         """
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + "assets"
         if query_path:

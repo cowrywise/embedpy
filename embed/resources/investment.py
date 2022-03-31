@@ -15,9 +15,11 @@ class Investment(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_investments(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        """
+        Gets a list of investments. Filter result by asset-type by supplying
+        the asset-type code as `asset_type` as kwarg
+        """
+        query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + "investments"
         if query_path:
@@ -61,3 +63,27 @@ class Investment(APIResponse):
 
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    def get_investment_holdings(self, investment_id):
+        """
+        For Indexes
+        """
+        method = "GET"
+        url = self.base_url + f"investments/{investment_id}/holdings"
+        return self.get_essential_details(method, url)
+
+    def get_investment_performance(self, investment_id):
+        """
+        Get investment performance timeseries
+        """
+        method = "GET"
+        url = self.base_url + f"investments/{investment_id}/performance"
+        return self.get_essential_details(method, url)
+
+    def get_investment_returns(self, investment_id):
+        """
+        Get investment performance timeseries
+        """
+        method = "GET"
+        url = self.base_url + f"investments/{investment_id}/returns"
+        return self.get_essential_details(method, url)
