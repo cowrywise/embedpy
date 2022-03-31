@@ -66,7 +66,7 @@ client = Client(client_id='****', client_secret='****', base_url="https://***.co
 | buy_stock(account_id=None, symbol=None, amount=None, side=None, the_type=None, time_in_force=None)  | `POST /stocks/buy` |
 | sell_stock(account_id=None, symbol=None, amount=None, side=None, the_type=None, time_in_force=None)  | `POST /stocks/sell` |
 | list_transfers(account_id=None, email=None, from_date=None, to_date=None)  | `GET /transfers/:id?email=None&from_date=None&to_date=None` |
-| get_deposit(deposit_id)  | `GET /deposits/:id` | 
+| get_deposit(deposit_id)  | `GET /deposits/:id` |
 | create_wallet(account_id=None, currency_code=None)  | `POST /wallets` |
 | transfer(wallet_id=None, product_code=None, amount=None)  | `POST /wallets/:wallet_id/transfer` |
 | get_wallet(wallet_id)  | `GET /wallets/:wallet_id` |
