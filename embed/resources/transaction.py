@@ -55,8 +55,6 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_withdrawals(self, **kwargs):
-        required = ["account_id"]
-        self._validate_kwargs(required, kwargs)
         query_path = "&".join(
             "{}={}".format(key, value) for key, value in kwargs.items()
         )
