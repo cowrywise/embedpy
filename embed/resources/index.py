@@ -34,33 +34,33 @@ class Index(APIResponse):
         url = self.base_url + f"indexes/{asset_id}/assets"
         return self.get_essential_details(method, url)
 
-    def create_custom_index(self, **kwargs):
-        """TODO: future release"""
-        required = ["account_id", "name", "description", "allocations"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
-
-        if "idempotency_key" in kwargs.keys():
-            self._headers.update(
-                {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
-            )
-
-        method = "POST"
-        url = self.base_url + "indexes"
-        payload = json.dumps(kwargs)
-        return self.get_essential_details(method, url, payload)
-
-    def modify_custom_index(self, **kwargs):
-        """TODO: future release"""
-        required = ["account_id", "index_id"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
-
-        method = "PUT"
-        index_id = kwargs.get("index_id")
-        url = self.base_url + f"indexes/{index_id}"
-
-        payload = json.dumps(kwargs)
-        return self.get_essential_details(method, url, payload)
+    # def create_custom_index(self, **kwargs):
+    #     """TODO: future release"""
+    #     required = ["account_id", "name", "description", "allocations"]
+    #     for key in required:
+    #         if key not in kwargs.keys():
+    #             raise ValidationError(f"{key} is required.")
+    #
+    #     if "idempotency_key" in kwargs.keys():
+    #         self._headers.update(
+    #             {"Embed-Idempotency-Key": str(kwargs.pop("idempotency_key"))}
+    #         )
+    #
+    #     method = "POST"
+    #     url = self.base_url + "indexes"
+    #     payload = json.dumps(kwargs)
+    #     return self.get_essential_details(method, url, payload)
+    #
+    # def modify_custom_index(self, **kwargs):
+    #     """TODO: future release"""
+    #     required = ["account_id", "index_id"]
+    #     for key in required:
+    #         if key not in kwargs.keys():
+    #             raise ValidationError(f"{key} is required.")
+    #
+    #     method = "PUT"
+    #     index_id = kwargs.get("index_id")
+    #     url = self.base_url + f"indexes/{index_id}"
+    #
+    #     payload = json.dumps(kwargs)
+    #     return self.get_essential_details(method, url, payload)
