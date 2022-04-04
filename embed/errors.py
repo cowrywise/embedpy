@@ -17,7 +17,7 @@ class ServerError(EmbedError):
     pass
 
 
-class EmbedConnectionError(ConnectionError, RequestException):
+class EmbedConnectionError(EmbedError, ConnectionError, RequestException):
     pass
 
 
