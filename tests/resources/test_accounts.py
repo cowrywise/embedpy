@@ -1,8 +1,12 @@
-from embed.resources.account import Account
-from embed import errors
-from unittest.mock import MagicMock, patch
 import json
+
 import pytest
+from unittest.mock import MagicMock, patch
+
+from embed import errors
+from embed.errors import EmbedConnectionError, ServerError
+from embed.resources.account import Account
+from tests import SKIP_SMOKE_TESTS
 
 
 @patch("embed.common.APIResponse.get_essential_details")
@@ -171,3 +175,65 @@ def test_can_update_identity(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/accounts/fake_id/identity",
         json.dumps(test_data),
     )
+
+
+# ========================================================================
+#                             SMOKE TESTS
+# ========================================================================
+@pytest.mark.skipif(SKIP_SMOKE_TESTS, reason="Skipping smoke tests")
+def test_create_account(smoke_helper):
+    resp, status_code = Account(smoke_helper.api_session).create_account(
+        first_name="embedpy_test_first_name",
+        last_name="embedpy_test_first_name",
+        email=f"embedpy_test_email_{smoke_helper.session_hash}@cowrywise.com",
+        idempotency_key=f"embedpy_test_idempotency_key_{smoke_helper.session_hash}",
+    )
+    if not (resp or status_code):
+        raise EmbedConnectionError("Cannot reach Embed Server")
+    if status_code >= 500:
+        raise ServerError()
+
+    if resp.get("status") == "success":
+        smoke_helper.account = resp.get("data")
+
+
+@pytest.mark.skipif(SKIP_SMOKE_TESTS, reason="Skipping smoke tests")
+def test_list_accounts(smoke_helper):
+    resp, status_code = Account(smoke_helper.api_session).list_accounts(page_size=20)
+
+    if not (resp or status_code):
+        raise EmbedConnectionError("Cannot reach Embed Server")
+    if status_code >= 500:
+        raise ServerError()
+
+    accounts = resp.get("data", [])
+    assert len(accounts) > 0
+
+
+@pytest.mark.skipif(SKIP_SMOKE_TESTS, reason="Skipping smoke tests")
+def test_get_account(smoke_helper):
+    account_helper = Account(smoke_helper.api_session)
+    test_account_id = smoke_helper.account.get("account_id")
+    resp, status_code = account_helper.get_account(test_account_id)
+
+    if not (resp or status_code):
+        raise EmbedConnectionError("Cannot reach Embed Server")
+    if status_code >= 500:
+        raise ServerError()
+
+    assert isinstance(resp, dict)
+
+
+@pytest.mark.skipif(SKIP_SMOKE_TESTS, reason="Skipping smoke tests")
+def test_get_portfolio(smoke_helper):
+    test_account_id = smoke_helper.account.get("account_id")
+    resp, status_code = Account(smoke_helper.api_session).get_portfolio(test_account_id)
+
+    if not (resp or status_code):
+        raise EmbedConnectionError("Cannot reach Embed Server")
+    if status_code >= 500:
+        raise ServerError()
+
+    portfolio = resp.get("data", {})
+    assert portfolio.get("balance", []), "no balances returned for new account"
+    assert portfolio.get("assets", {}).get("wallets", []), "no wallets created"
