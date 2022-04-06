@@ -14,9 +14,7 @@ class Wallet(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_wallets(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "wallets"
         if query_path:

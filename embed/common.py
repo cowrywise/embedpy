@@ -1,5 +1,6 @@
 import json
 import typing as t
+from datetime import datetime
 
 import requests
 from embed.errors import EmbedError, EmbedConnectionError, ValidationError
@@ -73,6 +74,13 @@ class APIResponse(HTTPClient):
         for key in required:
             if key not in kwargs.keys():
                 raise ValidationError(f"{key} is required.")
+
+    @staticmethod
+    def _format_query(kwargs: t.Dict):
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
+        return query_path
 
     @staticmethod
     def _error_message(exc):

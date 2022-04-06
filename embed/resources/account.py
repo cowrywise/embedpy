@@ -1,6 +1,5 @@
 import json
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Account(APIResponse):
@@ -28,9 +27,7 @@ class Account(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def list_accounts(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "accounts"
         if query_path:
@@ -57,11 +54,7 @@ class Account(APIResponse):
         """
         required = ["account_id"]
         self._validate_kwargs(required, kwargs)
-
-        kwargs["currency"] = kwargs.pop("currency", "NGN")
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = (
             self.base_url + f"accounts/{kwargs.get('account_id')}/portfolio/performance"

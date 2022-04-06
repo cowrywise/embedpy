@@ -2,7 +2,6 @@ import json
 import typing as t
 
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Stock(APIResponse):

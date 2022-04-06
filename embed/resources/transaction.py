@@ -1,5 +1,4 @@
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Transaction(APIResponse):
@@ -25,9 +24,7 @@ class Transaction(APIResponse):
             - asset_type ........... mutual-fund, crypto, tbills, wallet, savings, index
             - currency ............. Currency code in ISO-4217 format
         """
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "transfers"
         if query_path:
@@ -40,9 +37,7 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_deposits(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "deposits"
         if query_path:
@@ -55,9 +50,7 @@ class Transaction(APIResponse):
         return self.get_essential_details(method, url)
 
     def list_withdrawals(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "withdrawals"
         if query_path:

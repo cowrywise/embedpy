@@ -1,8 +1,6 @@
 import json
-from datetime import datetime
 
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Saving(APIResponse):
@@ -33,9 +31,7 @@ class Saving(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def list_savings(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "savings"
         if query_path:
@@ -54,47 +50,31 @@ class Saving(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def get_savings_returns(
-        self, savings_id, start_date: str = None, end_date: str = None
+        self, savings_id: str, start_date: str = None, end_date: str = None, **kwargs
     ):
-        params = {}
-        try:
-            if start_date:
-                datetime.strptime(start_date, "%Y-%m-%d")
-                params["start_date"] = start_date
-            if end_date:
-                datetime.strptime(end_date, "%Y-%m-%d")
-                params["end_date"] = end_date
-        except Exception:
-            ValidationError(
-                f"start_date and end_date should be in `YYYY-MM-DD` format."
-            )
+        if start_date:
+            kwargs["start_date"] = self._validate_date_string(start_date)
+        if end_date:
+            kwargs["end_date"] = self._validate_date_string(end_date)
 
         method = "GET"
         url = self.base_url + f"savings/{savings_id}/returns"
-        query_path = "&".join("{}={}".format(k, v) for k, v in params.items())
+        query_path = "&".join("{}={}".format(k, v) for k, v in kwargs.items())
         if query_path:
             url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
 
     def get_savings_performance(
-        self, savings_id, start_date: str = None, end_date: str = None
+        self, savings_id: str, start_date: str = None, end_date: str = None, **kwargs
     ):
-        params = {}
-        try:
-            if start_date:
-                datetime.strptime(start_date, "%Y-%m-%d")
-                params["start_date"] = start_date
-            if end_date:
-                datetime.strptime(end_date, "%Y-%m-%d")
-                params["end_date"] = end_date
-        except Exception:
-            ValidationError(
-                f"start_date and end_date should be in `YYYY-MM-DD` format."
-            )
+        if start_date:
+            kwargs["start_date"] = self._validate_date_string(start_date)
+        if end_date:
+            kwargs["end_date"] = self._validate_date_string(end_date)
 
         method = "GET"
         url = self.base_url + f"savings/{savings_id}/performance"
-        query_path = "&".join("{}={}".format(k, v) for k, v in params.items())
+        query_path = "&".join("{}={}".format(k, v) for k, v in kwargs.items())
         if query_path:
             url = f"{url}?{query_path}"
         return self.get_essential_details(method, url)
