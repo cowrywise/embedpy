@@ -47,5 +47,5 @@ jobs:
         run: |
           echo "Installing Pipenv"
           python -m pip install --upgrade pip setuptools wheel pipenv
-          pipenv install
+          pipenv install --dev
           pipenv run pytest
