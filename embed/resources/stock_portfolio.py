@@ -1,8 +1,6 @@
 import json
-import typing as t
 
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class StockPortfolio(APIResponse):
@@ -41,9 +39,3 @@ class StockPortfolio(APIResponse):
         url = self.base_url + "stocks-portfolio"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

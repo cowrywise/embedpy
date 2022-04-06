@@ -81,9 +81,3 @@ class Stock(APIResponse):
     #     method = "GET"
     #     url = self.base_url + f"stocks/positions?account_id={account_id}"
     #     return self.get_essential_details(method, url)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

@@ -1,8 +1,6 @@
 import json
-import typing as t
 
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Settlement(APIResponse):
@@ -24,9 +22,3 @@ class Settlement(APIResponse):
         url = self.base_url + "settlements"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

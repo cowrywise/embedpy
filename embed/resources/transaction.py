@@ -68,9 +68,3 @@ class Transaction(APIResponse):
         method = "GET"
         url = self.base_url + f"withdrawals/{withdrawal_id}"
         return self.get_essential_details(method, url)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

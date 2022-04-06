@@ -19,9 +19,7 @@ class Saving(APIResponse):
     def create_savings(self, **kwargs):
 
         required = ["account_id", "days", "interest_enabled", "currency_code"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         if "idempotency_key" in kwargs.keys():
             self._headers.update(
