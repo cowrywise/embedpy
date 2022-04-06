@@ -1,8 +1,7 @@
-from embed.resources.trade import Trade
-from embed import errors
-from unittest.mock import MagicMock, patch
 import json
-import pytest
+from unittest.mock import MagicMock, patch
+
+from embed.resources.trade import Trade
 
 
 @patch("embed.common.APIResponse.get_essential_details")
@@ -23,7 +22,8 @@ def test_can_get_single_position(mock_get_essential_details, api_session):
     trade.get_single_position(account_id="fake-id", stock_symbol="SYBL")
     trade.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/SYBL/positions?account_id=fake-id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"SYBL/positions?account_id=fake-id",
     )
 
 
@@ -34,7 +34,8 @@ def test_can_get_orders(mock_get_essential_details, api_session):
     trade.get_orders(account_id="fake-id")
     trade.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/orders?account_id=fake-id&status=open",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"orders?account_id=fake-id&status=open",
     )
 
 
@@ -45,7 +46,8 @@ def test_can_get_profile(mock_get_essential_details, api_session):
     trade.get_profile(account_id="fake-id")
     trade.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/profile?account_id=fake-id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"profile?account_id=fake-id",
     )
 
 
@@ -56,7 +58,8 @@ def test_can_get_position(mock_get_essential_details, api_session):
     trade.get_position(account_id="fake-id")
     trade.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/positions?account_id=fake-id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"positions?account_id=fake-id",
     )
 
 
@@ -114,5 +117,6 @@ def test_can_close_all_positions(mock_get_essential_details, api_session):
     trade.close_all_positions(account_id=test_data.get("account_id"))
     trade.get_essential_details.assert_called_with(
         "DELETE",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/positions?account_id=fake-id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"positions?account_id=fake-id",
     )

@@ -1,4 +1,4 @@
-from unittest.mock import patch, MagicMock, Mock
+from unittest.mock import patch, MagicMock
 
 import pytest
 from embed import common
@@ -32,7 +32,6 @@ def test_APIResponse__validate_kwargs(required, raises):
     ],
 )
 def test_APIResponse__validate_date_string(date, raises):
-    kwargs = {"arg_0": "val_0", "arg_1": "val_1", "arg_2": "val_2"}
     if raises:
         with pytest.raises(ValidationError):
             common.APIResponse._validate_date_string(date)
@@ -54,7 +53,7 @@ def test_APIResponse__format_query():
 )
 @patch("requests.request")
 def test_APIResponse_request(mock_request, content, expected_resp_content):
-    mock_request.return_value = Mock(content=content, status_code=200)
+    mock_request.return_value = MagicMock(content=content, status_code=200)
     response_obj = common.APIResponse(response="test_response", status="test_status")
     resp = response_obj.request("GET", "https://fake.url", headers={})
     assert resp == (expected_resp_content, 200)

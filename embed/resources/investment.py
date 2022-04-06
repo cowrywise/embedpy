@@ -1,6 +1,5 @@
 import json
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Investment(APIResponse):

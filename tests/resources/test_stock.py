@@ -11,7 +11,8 @@ def test_can_get_stocks(mock_get_essential_details, api_session):
     stock.list_stocks(page_size=20)
     stock.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/assets?page_size=20",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"assets?page_size=20",
     )
 
 
@@ -22,7 +23,8 @@ def test_can_get_single_stock_asset(mock_get_essential_details, api_session):
     stock.get_stocks(symbols=["fake_symbol_1", "fake_symbol_2"], page_size=20)
     stock.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/assets?symbol=fake_symbol_1&symbol=fake_symbol_2&page_size=20",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"assets?symbol=fake_symbol_1&symbol=fake_symbol_2&page_size=20",
     )
 
 
@@ -73,7 +75,8 @@ def test_can_get_profile(mock_get_essential_details, api_session):
     stock.get_profile("fake_id")
     stock.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/profile?account_id=fake_id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"profile?account_id=fake_id",
     )
 
 
@@ -84,7 +87,8 @@ def test_can_get_positions(mock_get_essential_details, api_session):
     stock.get_positions("fake_id")
     stock.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/positions?account_id=fake_id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"positions?account_id=fake_id",
     )
 
 
@@ -95,7 +99,8 @@ def test_can_get_position(mock_get_essential_details, api_session):
     stock.get_position("fake_id", "fake_symbol")
     stock.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/positions/fake_symbol?account_id=fake_id",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"positions/fake_symbol?account_id=fake_id",
     )
 
 
@@ -106,5 +111,6 @@ def test_can_get_orders(mock_get_essential_details, api_session):
     stock.get_orders("fake_id", "fake_status")
     stock.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/stocks/orders?account_id=fake_id&status=fake_status",
+        f"{api_session.base_url}/api/{api_session.api_version}/stocks/"
+        f"orders?account_id=fake_id&status=fake_status",
     )

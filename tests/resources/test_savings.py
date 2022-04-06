@@ -68,7 +68,8 @@ def test_can_get_savings_returns(mock_get_essential_details, api_session):
     savings.get_savings_returns("fake_savings_id", **test_data)
     savings.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/savings/fake_savings_id/returns?{savings._format_query(test_data)}",
+        f"{api_session.base_url}/api/{api_session.api_version}/savings/"
+        f"fake_savings_id/returns?{savings._format_query(test_data)}",
     )
 
 
@@ -80,7 +81,8 @@ def test_can_get_savings_performance(mock_get_essential_details, api_session):
     savings.get_savings_performance("fake_savings_id", **test_data)
     savings.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/savings/fake_savings_id/performance?{savings._format_query(test_data)}",
+        f"{api_session.base_url}/api/{api_session.api_version}/savings/"
+        f"fake_savings_id/performance?{savings._format_query(test_data)}",
     )
 
 
@@ -92,7 +94,8 @@ def test_can_withdraw(mock_get_essential_details, api_session):
     savings.withdraw(**test_data)
     savings.get_essential_details.assert_called_with(
         "POST",
-        f"{api_session.base_url}/api/{api_session.api_version}/savings/{test_data.pop('savings_id')}/withdraw",
+        f"{api_session.base_url}/api/{api_session.api_version}/savings/"
+        f"{test_data.pop('savings_id')}/withdraw",
         json.dumps(test_data),
     )
 
@@ -105,6 +108,7 @@ def test_can_rollover(mock_get_essential_details, api_session):
     savings.rollover(**test_data)
     savings.get_essential_details.assert_called_with(
         "POST",
-        f"{api_session.base_url}/api/{api_session.api_version}/savings/{test_data.pop('savings_id')}/rollover",
+        f"{api_session.base_url}/api/{api_session.api_version}/savings/"
+        f"{test_data.pop('savings_id')}/rollover",
         json.dumps(test_data),
     )

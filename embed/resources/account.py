@@ -158,7 +158,7 @@ class Account(APIResponse):
         Get questions to used to determine risk profile of user
         """
         method = "GET"
-        url = self.base_url + f"accounts/risk-profile-questions"
+        url = self.base_url + "accounts/risk-profile-questions"
         return self.get_essential_details(method, url)
 
     def update_risk_profile(self, **kwargs):

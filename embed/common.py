@@ -132,7 +132,10 @@ class APISession(APIResponse):
         self._access_token, _ = self._get_access_token()
 
     def _get_access_token(self):
-        payload = f"grant_type={self._grant_type}&client_id={self._client_id}&client_secret={self._client_secret}"
+        payload = (
+            f"grant_type={self._grant_type}&client_id={self._client_id}"
+            f"&client_secret={self._client_secret}"
+        )
         response, status = self.request(
             "POST", self._token_url, self._headers, post_data=payload
         )

@@ -45,7 +45,7 @@ class Saving(APIResponse):
 
     def get_savings_rates(self, days: int):
         method = "POST"
-        url = self.base_url + f"savings/rates"
+        url = self.base_url + "savings/rates"
         payload = json.dumps({"days": days})
         return self.get_essential_details(method, url, payload)
 
