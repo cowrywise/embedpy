@@ -7,7 +7,7 @@ def client_token():
     pass
 
 
-@pytest.fixture()
+@pytest.fixture(scope="function")
 def api_session(mocker):
     def get_access_token(self):
         return "token", 200
