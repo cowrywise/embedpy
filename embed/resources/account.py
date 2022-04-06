@@ -52,7 +52,9 @@ class Account(APIResponse):
         """
         Get the performance of a portfolio
         """
-        required = ["account_id"]
+        required = ["account_id", "currency"]
+        # optional = ["start_date", "end_date"]
+
         self._validate_kwargs(required, kwargs)
         query_path = self._format_query(kwargs)
         method = "GET"
