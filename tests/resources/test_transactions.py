@@ -6,10 +6,10 @@ from unittest.mock import MagicMock, patch
 def test_can_get_transfers(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.list_transfers()
+    transaction.list_transfers(page_size=20)
     transaction.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/transfers",
+        f"{api_session.base_url}/api/{api_session.api_version}/transfers?page_size=20",
     )
 
 
@@ -17,10 +17,10 @@ def test_can_get_transfers(mock_get_essential_details, api_session):
 def test_can_get_deposits(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.list_deposits()
+    transaction.list_deposits(page_size=20)
     transaction.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/deposits",
+        f"{api_session.base_url}/api/{api_session.api_version}/deposits?page_size=20",
     )
 
 
@@ -28,10 +28,10 @@ def test_can_get_deposits(mock_get_essential_details, api_session):
 def test_can_get_withdrawals(mock_get_essential_details, api_session):
     transaction = Transaction(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    transaction.list_withdrawals()
+    transaction.list_withdrawals(page_size=20)
     transaction.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/withdrawals",
+        f"{api_session.base_url}/api/{api_session.api_version}/withdrawals?page_size=20",
     )
 
 
