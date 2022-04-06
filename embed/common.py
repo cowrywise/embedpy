@@ -76,6 +76,21 @@ class APIResponse(HTTPClient):
                 raise ValidationError(f"{key} is required.")
 
     @staticmethod
+    def _validate_date_string(
+        date_string: str, date_format: str = "%Y-%m-%d", label: str = "Date"
+    ) -> str:
+        """
+        Check that `date_string` conforms to format: `date_format`.
+
+        Returns `date_string` if valid, else raises `ValidationError`
+        """
+        try:
+            datetime.strptime(date_string, date_format)
+            return date_string
+        except Exception:
+            raise ValidationError(f"{label} should be in `YYYY-MM-DD` format.")
+
+    @staticmethod
     def _format_query(kwargs: t.Dict):
         query_path = "&".join(
             "{}={}".format(key, value) for key, value in kwargs.items()
