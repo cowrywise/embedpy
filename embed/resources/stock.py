@@ -25,7 +25,7 @@ class Stock(APIResponse):
 
     def get_stocks(self, symbols: t.List[str], **kwargs):
         query_path = "&".join("symbol={}".format(s) for s in symbols)
-        query_path += "&".join("{}={}".format(k, v) for k, v in kwargs.items())
+        query_path += "&" + "&".join("{}={}".format(k, v) for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + f"stocks/assets?{query_path}"
         return self.get_essential_details(method, url)

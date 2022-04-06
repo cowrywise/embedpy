@@ -30,7 +30,7 @@ class Misc(APIResponse):
 
     def process_purchase(self, reference: str):
         method = "POST"
-        url = self.base_url + "/misc/process-investment"
+        url = self.base_url + "misc/process-investment"
         payload = json.dumps({"reference": reference})
         return self.get_essential_details(method, url, payload)
 
