@@ -1,6 +1,5 @@
 import json
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Trade(APIResponse):
@@ -21,9 +20,7 @@ class Trade(APIResponse):
 
     def get_single_position(self, **kwargs):
         required = ["account_id", "stock_symbol"]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         account_id = kwargs.get("account_id")
         stock_symbol = kwargs.get("stock_symbol")
@@ -56,9 +53,7 @@ class Trade(APIResponse):
             "the_type",
             "time_in_force",
         ]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         if "idempotency_key" in kwargs.keys():
             self._headers.update(
@@ -80,9 +75,7 @@ class Trade(APIResponse):
             "the_type",
             "time_in_force",
         ]
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")
+        self._validate_kwargs(required, kwargs)
 
         if "idempotency_key" in kwargs.keys():
             self._headers.update(

@@ -1,6 +1,5 @@
 import json
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Account(APIResponse):
@@ -28,9 +27,7 @@ class Account(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def list_accounts(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "accounts"
         if query_path:
@@ -55,13 +52,11 @@ class Account(APIResponse):
         """
         Get the performance of a portfolio
         """
-        required = ["account_id"]
-        self._validate_kwargs(required, kwargs)
+        required = ["account_id", "currency"]
+        # optional = ["start_date", "end_date"]
 
-        kwargs["currency"] = kwargs.pop("currency", "NGN")
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        self._validate_kwargs(required, kwargs)
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = (
             self.base_url + f"accounts/{kwargs.get('account_id')}/portfolio/performance"
@@ -163,7 +158,7 @@ class Account(APIResponse):
         Get questions to used to determine risk profile of user
         """
         method = "GET"
-        url = self.base_url + f"accounts/risk-profile-questions"
+        url = self.base_url + "accounts/risk-profile-questions"
         return self.get_essential_details(method, url)
 
     def update_risk_profile(self, **kwargs):
@@ -188,9 +183,3 @@ class Account(APIResponse):
         method = "GET"
         url = self.base_url + f"accounts/{account_id}/risk-profile"
         return self.get_essential_details(method, url)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

@@ -2,7 +2,6 @@ import json
 import typing as t
 
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Stock(APIResponse):
@@ -26,7 +25,7 @@ class Stock(APIResponse):
 
     def get_stocks(self, symbols: t.List[str], **kwargs):
         query_path = "&".join("symbol={}".format(s) for s in symbols)
-        query_path += "&".join("{}={}".format(k, v) for k, v in kwargs.items())
+        query_path += "&" + "&".join("{}={}".format(k, v) for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + f"stocks/assets?{query_path}"
         return self.get_essential_details(method, url)
@@ -81,9 +80,3 @@ class Stock(APIResponse):
     #     method = "GET"
     #     url = self.base_url + f"stocks/positions?account_id={account_id}"
     #     return self.get_essential_details(method, url)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

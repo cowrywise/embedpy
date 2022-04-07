@@ -1,18 +1,29 @@
-from embed.resources.index import Index
-from embed import errors
-from unittest.mock import MagicMock, patch
 import json
 import pytest
+from unittest.mock import MagicMock, patch
+
+from embed.resources.index import Index
 
 
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_indexes(mock_get_essential_details, api_session):
     index = Index(api_session)
     mock_get_essential_details.return_value = MagicMock()
-    index.list_indexes()
+    index.list_indexes(page_size=20)
     index.get_essential_details.assert_called_with(
         "GET",
-        f"{api_session.base_url}/api/{api_session.api_version}/indexes",
+        f"{api_session.base_url}/api/{api_session.api_version}/indexes?page_size=20",
+    )
+
+
+@patch("embed.common.APIResponse.get_essential_details")
+def test_can_get_single_indexes(mock_get_essential_details, api_session):
+    index = Index(api_session)
+    mock_get_essential_details.return_value = MagicMock()
+    index.get_index("fake_id")
+    index.get_essential_details.assert_called_with(
+        "GET",
+        f"{api_session.base_url}/api/{api_session.api_version}/indexes/fake_id",
     )
 
 

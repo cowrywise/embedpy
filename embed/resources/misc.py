@@ -1,7 +1,6 @@
 import json
 
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Misc(APIResponse):
@@ -15,14 +14,14 @@ class Misc(APIResponse):
         self.token = api_session.token
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
-    def get_banks(self, page=None, page_size=None):
-        query_params = {}
-        if page:
-            query_params["page"] = page
-        if page_size:
-            query_params["page_size"] = page_size
+    def get_banks(self, **kwargs):
+        """
+        Optional pagination params:
+          - page: int
+          - page_size: int
+        """
 
-        query_path = "&".join(f"{k}={v}" for k, v in query_params.items())
+        query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
         url = self.base_url + "misc/banks"
         if query_path:
@@ -31,7 +30,7 @@ class Misc(APIResponse):
 
     def process_purchase(self, reference: str):
         method = "POST"
-        url = self.base_url + "/misc/process-investment"
+        url = self.base_url + "misc/process-investment"
         payload = json.dumps({"reference": reference})
         return self.get_essential_details(method, url, payload)
 
@@ -84,9 +83,3 @@ class Misc(APIResponse):
         url = self.base_url + "misc/withdrawal/processing-fees"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

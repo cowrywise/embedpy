@@ -1,6 +1,4 @@
-import json
 from embed.common import APIResponse
-from embed.errors import ValidationError
 
 
 class Index(APIResponse):
@@ -15,9 +13,7 @@ class Index(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_indexes(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "indexes"
         if query_path:

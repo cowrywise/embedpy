@@ -1,6 +1,9 @@
 import json
+import typing as t
+from datetime import datetime
+
 import requests
-from embed.errors import EmbedError, EmbedConnectionError
+from embed.errors import EmbedError, EmbedConnectionError, ValidationError
 from embed.errors import CredentialsError, ServerError
 from embed.version import __version__
 
@@ -67,6 +70,34 @@ class APIResponse(HTTPClient):
         return self._content, self._status_code
 
     @staticmethod
+    def _validate_kwargs(required: t.List, kwargs: t.Dict):
+        for key in required:
+            if key not in kwargs.keys():
+                raise ValidationError(f"{key} is required.")
+
+    @staticmethod
+    def _validate_date_string(
+        date_string: str, date_format: str = "%Y-%m-%d", label: str = "Date"
+    ) -> str:
+        """
+        Check that `date_string` conforms to format: `date_format`.
+
+        Returns `date_string` if valid, else raises `ValidationError`
+        """
+        try:
+            datetime.strptime(date_string, date_format)
+            return date_string
+        except Exception:
+            raise ValidationError(f"{label} should be in `YYYY-MM-DD` format.")
+
+    @staticmethod
+    def _format_query(kwargs: t.Dict):
+        query_path = "&".join(
+            "{}={}".format(key, value) for key, value in kwargs.items()
+        )
+        return query_path
+
+    @staticmethod
     def _error_message(exc):
         if isinstance(exc, requests.exceptions.RequestException):
             err = "%s: %s" % (type(exc).__name__, str(exc))
@@ -101,7 +132,10 @@ class APISession(APIResponse):
         self._access_token, _ = self._get_access_token()
 
     def _get_access_token(self):
-        payload = f"grant_type={self._grant_type}&client_id={self._client_id}&client_secret={self._client_secret}"
+        payload = (
+            f"grant_type={self._grant_type}&client_id={self._client_id}"
+            f"&client_secret={self._client_secret}"
+        )
         response, status = self.request(
             "POST", self._token_url, self._headers, post_data=payload
         )

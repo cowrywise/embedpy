@@ -1,5 +1,4 @@
 import json
-from embed.errors import ValidationError
 from embed.common import APIResponse
 
 
@@ -15,9 +14,7 @@ class Wallet(APIResponse):
         self._headers.update({"Authorization": f"Bearer {self.token}"})
 
     def list_wallets(self, **kwargs):
-        query_path = "&".join(
-            "{}={}".format(key, value) for key, value in kwargs.items()
-        )
+        query_path = self._format_query(kwargs)
         method = "GET"
         url = self.base_url + "wallets"
         if query_path:
@@ -58,9 +55,3 @@ class Wallet(APIResponse):
         url = self.base_url + f"wallets/{wallet_id}/transfer"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
-
-    @staticmethod
-    def _validate_kwargs(required, kwargs):
-        for key in required:
-            if key not in kwargs.keys():
-                raise ValidationError(f"{key} is required.")

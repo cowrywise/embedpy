@@ -19,8 +19,5 @@ class Price(APIResponse):
         date-format: YYYY-MM-DD e.g. 2020-01-10
         """
         method = "GET"
-        url = (
-            self.base_url
-            + f"prices?asset_id={asset_id}&from_date={from_date}&to_date={to_date}"
-        )
+        url = f"{self.base_url}prices?asset_id={asset_id}&from_date={from_date}&to_date={to_date}"
         return self.get_essential_details(method, url)

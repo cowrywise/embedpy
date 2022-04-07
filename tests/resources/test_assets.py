@@ -1,8 +1,6 @@
-from embed.resources.asset import Asset
-from embed import errors
 from unittest.mock import MagicMock, patch
-import json
-import pytest
+
+from embed.resources.asset import Asset
 
 
 @patch("embed.common.APIResponse.get_essential_details")
