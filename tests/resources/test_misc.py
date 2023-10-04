@@ -1,6 +1,10 @@
 import json
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
+import responses
+import pytest
+
+from embed.common import APISession
 from embed.resources.misc import Misc
 
 
@@ -101,3 +105,25 @@ def test_withdrawal_processing_fee(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/misc/withdrawal/processing-fees",
         json.dumps(test_data),
     )
+
+
+@responses.activate
+def test_get_returns_booking_date(api_session: APISession):
+    misc = Misc(api_session=api_session)
+    response_data = {
+        "data": {"returns_booking_date": "2023-11-04"},
+        "errors": None,
+        "message": "Request successful",
+        "status": "success",
+    }
+    response_status_code = 200
+
+    responses.add(
+        url=f"{api_session.base_url}/api/{api_session.api_version}/misc/get-returns-booking-date",
+        method=responses.GET,
+        json=response_data,
+        status=response_status_code,
+    )
+
+    data = misc.get_returns_booking_date()
+    assert data == (response_data, response_status_code)

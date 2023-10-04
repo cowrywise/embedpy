@@ -83,3 +83,9 @@ class Misc(APIResponse):
         url = self.base_url + "misc/withdrawal/processing-fees"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
+
+    def get_returns_booking_date(self):
+        uri = "misc/get-returns-booking-date"
+        url = self.base_url + uri
+        method = "GET"
+        return self.get_essential_details(method=method, url=url)

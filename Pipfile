@@ -11,6 +11,7 @@ pre-commit = "*"
 pytest-mock = "*"
 pytest = "*"
 pytest-cov = "*"
+responses = "*"
 
 [requires]
 python_version = "3.8"

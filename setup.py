@@ -14,7 +14,7 @@ setup(
     license=version.__license__,
     author=version.__author__,
     author_email="embed@cowrywise.com",
-    install_requires=["requests", "pytest", "pytest-mock"],
+    install_requires=["requests", "pytest", "pytest-mock", "responses"],
     keywords=["cowrywise", "embedpy"],
     description="Python client library for Cowrywise Embed Investments API",
     long_description=long_description,
