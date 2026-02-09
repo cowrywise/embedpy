@@ -4,7 +4,7 @@ from embed.common import APIResponse
 
 class Investment(APIResponse):
     """
-    Handles all queries for Investment
+    Handles all queries for Investment including listing, creation, and liquidation.
     """
 
     def __init__(self, api_session):
@@ -15,8 +15,16 @@ class Investment(APIResponse):
 
     def list_investments(self, **kwargs):
         """
-        Gets a list of investments. Filter result by asset-type by supplying
-        the asset-type code as `asset_type` as kwarg
+        Retrieve a list of all investments.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments.
+            asset_type (str): Optional. Filter by asset type code (e.g., 'tbills', 'mutual_funds').
+            page_size (int): Optional. Number of items per page.
+            page (int): Optional. Current page number.
+
+        Returns:
+            dict: The API response containing a list of investments.
         """
         query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
@@ -26,11 +34,33 @@ class Investment(APIResponse):
         return self.get_essential_details(method, url)
 
     def get_investment(self, investment_id):
+        """
+        Retrieve details of a specific investment.
+
+        Args:
+            investment_id (str): The unique identifier for the investment.
+
+        Returns:
+            dict: The API response containing investment details.
+        """
         method = "GET"
         url = self.base_url + f"investments/{investment_id}"
         return self.get_essential_details(method, url)
 
     def create_investment(self, **kwargs):
+        """
+        Create a new investment.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments.
+            account_id (str): Required. The unique identifier for the account.
+            asset_code (str): Required. The code of the asset to invest in.
+            amount (float): Optional. Amount to invest.
+            idempotency_key (str): Optional. Unique key to prevent duplicate requests.
+
+        Returns:
+            dict: The API response containing the new investment details.
+        """
         required = ["account_id", "asset_code"]
         self._validate_kwargs(required, kwargs)
 
@@ -44,6 +74,18 @@ class Investment(APIResponse):
         return self.get_essential_details(method, url, payload)
 
     def liquidate_investment(self, **kwargs):
+        """
+        Liquidate an existing investment.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments.
+            investment_id (str): Required. The unique identifier for the investment.
+            units (str): Required. Number of units to liquidate.
+            idempotency_key (str): Optional. Unique key to prevent duplicate requests.
+
+        Returns:
+            dict: The API response containing liquidation details.
+        """
         required = ["investment_id", "units"]
         self._validate_kwargs(required, kwargs)
 
@@ -61,7 +103,13 @@ class Investment(APIResponse):
 
     def get_investment_holdings(self, investment_id):
         """
-        For Indexes
+        Retrieve holdings details for an investment (specifically for Indexes).
+
+        Args:
+            investment_id (str): The unique identifier for the investment.
+
+        Returns:
+            dict: The API response containing holdings information.
         """
         method = "GET"
         url = self.base_url + f"investments/{investment_id}/holdings"
@@ -69,7 +117,13 @@ class Investment(APIResponse):
 
     def get_investment_performance(self, investment_id):
         """
-        Get investment performance timeseries
+        Retrieve performance timeseries for an investment.
+
+        Args:
+            investment_id (str): The unique identifier for the investment.
+
+        Returns:
+            dict: The API response containing performance data.
         """
         method = "GET"
         url = self.base_url + f"investments/{investment_id}/performance"
@@ -77,7 +131,13 @@ class Investment(APIResponse):
 
     def get_investment_returns(self, investment_id):
         """
-        Get investment performance timeseries
+        Retrieve returns history for an investment.
+
+        Args:
+            investment_id (str): The unique identifier for the investment.
+
+        Returns:
+            dict: The API response containing returns data.
         """
         method = "GET"
         url = self.base_url + f"investments/{investment_id}/returns"

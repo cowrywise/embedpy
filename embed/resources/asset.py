@@ -4,7 +4,7 @@ from embed.common import APIResponse
 
 class Asset(APIResponse):
     """
-    Handles all queries for Asset
+    Handles all queries for Asset discovery.
     """
 
     def __init__(self, api_session):
@@ -15,8 +15,15 @@ class Asset(APIResponse):
 
     def list_assets(self, **kwargs):
         """
-        Get all the known assets. Can also filter by country by supplying
-        two-letter country code as "country" in kwarg
+        Retrieve a list of all available investment assets.
+
+        Args:
+            **kwargs: Arbitrary keyword arguments.
+            country (str): Optional. ISO 2-letter country code (e.g., 'NG', 'GH').
+            asset_type (str): Optional. Filter by asset type (e.g., 'tbills', 'mutual_funds').
+
+        Returns:
+            dict: The API response containing a list of assets.
         """
         query_path = "&".join(f"{k}={v}" for k, v in kwargs.items())
         method = "GET"
@@ -27,7 +34,13 @@ class Asset(APIResponse):
 
     def get_asset(self, asset_id):
         """
-        Get a single asset by id
+        Retrieve details of a single asset by its ID.
+
+        Args:
+            asset_id (str): The unique identifier for the asset.
+
+        Returns:
+            dict: The API response containing asset details.
         """
         method = "GET"
         url = self.base_url + f"assets/{asset_id}"
