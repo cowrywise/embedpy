@@ -328,7 +328,7 @@
                 "sha256:9deba5723312380e77435581c6bf4935c94cbfab9b1ed33ef8d238ea168eb760"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==2.1.1"
+            "version": "==2.1.0"
         },
         "nodeenv": {
             "hashes": [
