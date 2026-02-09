@@ -45,4 +45,3 @@ class Asset(APIResponse):
         method = "GET"
         url = self.base_url + f"assets/{asset_id}"
         return self.get_essential_details(method, url)
-

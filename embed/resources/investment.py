@@ -142,4 +142,3 @@ class Investment(APIResponse):
         method = "GET"
         url = self.base_url + f"investments/{investment_id}/returns"
         return self.get_essential_details(method, url)
-

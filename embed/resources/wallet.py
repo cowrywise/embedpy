@@ -100,4 +100,3 @@ class Wallet(APIResponse):
         url = self.base_url + f"wallets/{wallet_id}/transfer"
         payload = json.dumps(kwargs)
         return self.get_essential_details(method, url, payload)
-

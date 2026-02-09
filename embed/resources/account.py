@@ -311,4 +311,3 @@ class Account(APIResponse):
         method = "GET"
         url = self.base_url + f"accounts/{account_id}/risk-profile"
         return self.get_essential_details(method, url)
-

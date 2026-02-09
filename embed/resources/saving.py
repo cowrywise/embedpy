@@ -177,4 +177,3 @@ class Saving(APIResponse):
         url = self.base_url + f"savings/{savings_id}/rollover"
         payload = json.dumps({"days": days})
         return self.get_essential_details(method, url, payload)
-
