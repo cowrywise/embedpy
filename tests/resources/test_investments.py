@@ -43,6 +43,7 @@ def test_can_create_investment(mock_get_essential_details, api_session):
     test_data = {
         "account_id": "bbaaaaaabbb6477f866b20161e003ebb",
         "asset_code": "AST-TBILL-0001000000",
+        "amount": 5000.0,
         "idempotency_key": "test_idempotency_key",
     }
     investment.create_investment(**test_data)

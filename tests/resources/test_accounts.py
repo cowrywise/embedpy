@@ -13,6 +13,8 @@ def test_can_create_account(mock_get_essential_details, api_session):
         "first_name": "test",
         "last_name": "tester",
         "email": "tester@abc.com",
+        "phone_number": "+2348123456789",
+        "terms_of_use_accepted": True,
         "idempotency_key": "test_idempotency_key",
     }
     account.create_account(**test_data)
