@@ -1,6 +1,7 @@
 import json
 from embed.common import APIResponse
 
+
 class Eurobond(APIResponse):
     """
     Handles all queries for Eurobond investments.

@@ -12,6 +12,7 @@ def test_can_list_eurobonds(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/eurobonds?account_id=fake-acc",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_eurobond_preview(mock_get_essential_details, api_session):
     eb = Eurobond(api_session)

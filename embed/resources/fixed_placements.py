@@ -1,6 +1,7 @@
 import json
 from embed.common import APIResponse
 
+
 class FixedPlacement(APIResponse):
     """
     Handles all queries for Fixed Placement investments.

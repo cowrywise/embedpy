@@ -12,6 +12,7 @@ def test_can_list_fixed_placements(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-placements?account_id=fake-acc",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_fixed_placement_preview(mock_get_essential_details, api_session):
     fp = FixedPlacement(api_session)

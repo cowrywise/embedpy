@@ -85,7 +85,11 @@ class FlexibleSaving(APIResponse):
         return self.get_essential_details(method, url)
 
     def get_flexible_savings_performance(
-        self, flexible_savings_id: str, start_date: str = None, end_date: str = None, **kwargs
+        self,
+        flexible_savings_id: str,
+        start_date: str = None,
+        end_date: str = None,
+        **kwargs,
     ):
         """
         Retrieve performance timeseries for a flexible savings plan.
@@ -112,7 +116,11 @@ class FlexibleSaving(APIResponse):
         return self.get_essential_details(method, url)
 
     def get_flexible_savings_returns(
-        self, flexible_savings_id: str, start_date: str = None, end_date: str = None, **kwargs
+        self,
+        flexible_savings_id: str,
+        start_date: str = None,
+        end_date: str = None,
+        **kwargs,
     ):
         """
         Retrieve returns history for a flexible savings plan.

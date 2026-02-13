@@ -11,6 +11,7 @@ def test_can_list_withdrawals(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/withdrawals?page=1",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_withdrawal(mock_get_essential_details, api_session):
     w = Withdrawal(api_session)
@@ -20,6 +21,7 @@ def test_can_get_withdrawal(mock_get_essential_details, api_session):
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/withdrawals/fake-w-id",
     )
+
 
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_list_withdrawal_intents(mock_get_essential_details, api_session):

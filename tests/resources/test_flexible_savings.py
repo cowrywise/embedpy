@@ -12,6 +12,7 @@ def test_can_list_flexible_savings(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/flexible-savings?page_size=20",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_flexible_savings(mock_get_essential_details, api_session):
     fs = FlexibleSaving(api_session)
@@ -21,6 +22,7 @@ def test_can_get_flexible_savings(mock_get_essential_details, api_session):
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/flexible-savings/fake-fs-id",
     )
+
 
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_flexible_savings(mock_get_essential_details, api_session):
@@ -38,6 +40,7 @@ def test_can_create_flexible_savings(mock_get_essential_details, api_session):
         json.dumps({"account_id": "fake-account-id", "currency_code": "NGN"}),
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_flexible_savings_rates(mock_get_essential_details, api_session):
     fs = FlexibleSaving(api_session)
@@ -48,6 +51,7 @@ def test_can_get_flexible_savings_rates(mock_get_essential_details, api_session)
         f"{api_session.base_url}/api/{api_session.api_version}/flexible-savings/rates",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_flexible_savings_performance(mock_get_essential_details, api_session):
     fs = FlexibleSaving(api_session)
@@ -57,6 +61,7 @@ def test_can_get_flexible_savings_performance(mock_get_essential_details, api_se
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/flexible-savings/fake-fs-id/performance?start_date=2023-01-01",
     )
+
 
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_withdraw_from_flexible_savings(mock_get_essential_details, api_session):

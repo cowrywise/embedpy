@@ -12,6 +12,7 @@ def test_can_list_fixed_notes(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes?page_size=20",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_fixed_note(mock_get_essential_details, api_session):
     fn = FixedNote(api_session)
@@ -22,6 +23,7 @@ def test_can_get_fixed_note(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes/fake-fn-id",
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_create_fixed_note(mock_get_essential_details, api_session):
     fn = FixedNote(api_session)
@@ -31,7 +33,7 @@ def test_can_create_fixed_note(mock_get_essential_details, api_session):
         "asset_code": "FN-ASSET",
         "tenor_in_months": 12,
         "amount_range": "10k-100k",
-        "idempotency_key": "test-key"
+        "idempotency_key": "test-key",
     }
     fn.create_fixed_note(**test_data)
     fn.get_essential_details.assert_called_with(
@@ -45,6 +47,7 @@ def test_can_create_fixed_note(mock_get_essential_details, api_session):
         }),
     )
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_get_fixed_note_rates(mock_get_essential_details, api_session):
     fn = FixedNote(api_session)
@@ -54,6 +57,7 @@ def test_can_get_fixed_note_rates(mock_get_essential_details, api_session):
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes/rates?tenor_in_months=6&amount_range=10k-100k&currency=NGN",
     )
+
 
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_withdraw_from_fixed_note(mock_get_essential_details, api_session):
@@ -65,6 +69,7 @@ def test_can_withdraw_from_fixed_note(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes/fake-fn-id/withdraw",
         json.dumps({"amount": 5000}),
     )
+
 
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_rollover_fixed_note(mock_get_essential_details, api_session):
