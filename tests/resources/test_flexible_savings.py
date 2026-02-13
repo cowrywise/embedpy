@@ -2,6 +2,7 @@ import json
 from embed.resources.flexible_savings import FlexibleSaving
 from unittest.mock import MagicMock, patch
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_list_flexible_savings(mock_get_essential_details, api_session):
     fs = FlexibleSaving(api_session)
@@ -31,7 +32,7 @@ def test_can_create_flexible_savings(mock_get_essential_details, api_session):
     test_data = {
         "account_id": "fake-account-id",
         "currency_code": "NGN",
-        "idempotency_key": "test_id_key"
+        "idempotency_key": "test_id_key",
     }
     fs.create_flexible_savings(**test_data)
     fs.get_essential_details.assert_called_with(

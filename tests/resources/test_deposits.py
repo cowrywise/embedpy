@@ -1,6 +1,7 @@
 from embed.resources.deposit import Deposit
 from unittest.mock import MagicMock, patch
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_list_deposits(mock_get_essential_details, api_session):
     d = Deposit(api_session)

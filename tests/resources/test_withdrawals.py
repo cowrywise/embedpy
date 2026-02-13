@@ -1,6 +1,7 @@
 from embed.resources.withdrawal import Withdrawal
 from unittest.mock import MagicMock, patch
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_list_withdrawals(mock_get_essential_details, api_session):
     w = Withdrawal(api_session)

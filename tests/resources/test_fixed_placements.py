@@ -2,6 +2,7 @@ import json
 from embed.resources.fixed_placements import FixedPlacement
 from unittest.mock import MagicMock, patch
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_list_fixed_placements(mock_get_essential_details, api_session):
     fp = FixedPlacement(api_session)

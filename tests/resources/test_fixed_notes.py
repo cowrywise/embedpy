@@ -2,6 +2,7 @@ import json
 from embed.resources.fixed_notes import FixedNote
 from unittest.mock import MagicMock, patch
 
+
 @patch("embed.common.APIResponse.get_essential_details")
 def test_can_list_fixed_notes(mock_get_essential_details, api_session):
     fn = FixedNote(api_session)
@@ -39,12 +40,14 @@ def test_can_create_fixed_note(mock_get_essential_details, api_session):
     fn.get_essential_details.assert_called_with(
         "POST",
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes",
-        json.dumps({
-            "account_id": "fake-account-id",
-            "asset_code": "FN-ASSET",
-            "tenor_in_months": 12,
-            "amount_range": "10k-100k"
-        }),
+        json.dumps(
+            {
+                "account_id": "fake-account-id",
+                "asset_code": "FN-ASSET",
+                "tenor_in_months": 12,
+                "amount_range": "10k-100k",
+            }
+        ),
     )
 
 
