@@ -94,11 +94,8 @@ investment = client.investment.create_investment(
 | `get_wallet(wallet_id)`  | `GET /wallets/:wallet_id` |
 | `list_flexible_savings(**kwargs)` | `GET /flexible-savings` |
 | `create_fixed_note(**kwargs)` | `POST /fixed-notes` |
-| `list_eurobonds(**kwargs)` | `GET /eurobonds` |
-| `list_fixed_placements(**kwargs)` | `GET /fixed-placements` |
+
 | `list_withdrawals(**kwargs)` | `GET /withdrawals` |
-| `cscs_onboarding(**kwargs)` | `POST /integration/cscs/onboarding` |
-| `atomic_onboarding(**kwargs)` | `POST /integration/atomic/onboarding` |
 
 Check the [API reference](https://developers.cowrywise.com/reference) document for all resources and their respective endpoints.
 

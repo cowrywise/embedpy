@@ -4,8 +4,6 @@ from embed.errors import CredentialsError
 from embed.resources.account import Account
 from embed.resources.asset import Asset
 from embed.resources.deposit import Deposit
-from embed.resources.eurobonds import Eurobond
-from embed.resources.fixed_placements import FixedPlacement
 from embed.resources.index import Index
 from embed.resources.integrations import Integration
 from embed.resources.investment import Investment
@@ -69,8 +67,6 @@ class Client(object):
         self._accounts = Account(self._session)
         self._assets = Asset(self._session)
         self._deposits = Deposit(self._session)
-        self._eurobonds = Eurobond(self._session)
-        self._fixed_placements = FixedPlacement(self._session)
         self._investments = Investment(self._session)
         self._indexes = Index(self._session)
         self._integrations = Integration(self._session)
@@ -103,13 +99,6 @@ class Client(object):
     def deposits(self):
         return self._deposits
 
-    @property
-    def eurobonds(self):
-        return self._eurobonds
-
-    @property
-    def fixed_placements(self):
-        return self._fixed_placements
 
     @property
     def investments(self):
