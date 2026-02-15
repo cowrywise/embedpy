@@ -17,6 +17,7 @@ from embed.resources.stock_portfolio import StockPortfolio
 from embed.resources.trade import Trade
 from embed.resources.transaction import Transaction
 from embed.resources.withdrawal import Withdrawal
+from embed.resources.withdrawal_intents import WithdrawalIntent
 from embed.resources.misc import Misc
 from embed.resources.wallet import Wallet
 from embed.common import APISession
@@ -79,6 +80,7 @@ class Client(object):
         self._trades = Trade(self._session)
         self._transactions = Transaction(self._session)
         self._withdrawals = Withdrawal(self._session)
+        self._withdrawal_intents = WithdrawalIntent(self._session)
         self._prices = Price(self._session)
         self._wallets = Wallet(self._session)
         self._misc = Misc(self._session)
@@ -147,6 +149,11 @@ class Client(object):
     @property
     def withdrawals(self):
         return self._withdrawals
+
+    @property
+    def withdrawal_intents(self):
+        return self._withdrawal_intents
+
 
     @property
     def prices(self):
