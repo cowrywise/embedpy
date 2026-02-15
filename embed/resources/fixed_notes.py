@@ -196,7 +196,21 @@ class FixedNote(APIResponse):
         Returns:
             dict: The API response containing updated fixed note details.
         """
-        method = "PUT"
+        method = "PATCH"
         url = self.base_url + f"fixed-notes/{fixed_note_id}/auto-reinvest"
         payload = json.dumps({"auto_reinvest": auto_reinvest})
         return self.get_essential_details(method, url, payload)
+
+    def delete_auto_reinvest(self, fixed_note_id):
+        """
+        Delete the auto-reinvest status for a fixed note.
+
+        Args:
+            fixed_note_id (str): The unique identifier for the fixed note.
+
+        Returns:
+            dict: The API response.
+        """
+        method = "DELETE"
+        url = self.base_url + f"fixed-notes/{fixed_note_id}/auto-reinvest"
+        return self.get_essential_details(method, url)
