@@ -5,7 +5,7 @@ from embed.resources.account import Account
 from embed.resources.asset import Asset
 from embed.resources.deposit import Deposit
 from embed.resources.index import Index
-from embed.resources.cscs import CSCS
+from embed.resources.integrations import Integration
 from embed.resources.investment import Investment
 from embed.resources.price import Price
 from embed.resources.saving import Saving
@@ -70,7 +70,7 @@ class Client(object):
         self._deposits = Deposit(self._session)
         self._investments = Investment(self._session)
         self._indexes = Index(self._session)
-        self._cscs = CSCS(self._session)
+        self._integrations = Integration(self._session)
         self._savings = Saving(self._session)
         self._flexible_savings = FlexibleSaving(self._session)
         self._fixed_notes = FixedNote(self._session)
@@ -110,8 +110,8 @@ class Client(object):
         return self._indexes
 
     @property
-    def cscs(self):
-        return self._cscs
+    def integrations(self):
+        return self._integrations
 
     @property
     def savings(self):

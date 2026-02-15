@@ -185,32 +185,18 @@ class FixedNote(APIResponse):
         payload = json.dumps({"tenor_in_months": tenor_in_months})
         return self.get_essential_details(method, url, payload)
 
-    def update_auto_reinvest(self, fixed_note_id, auto_reinvest):
+    def partial_update(self, fixed_note_id, **kwargs):
         """
-        Update the auto-reinvest status for a fixed note.
+        Partially update a fixed note.
 
         Args:
             fixed_note_id (str): The unique identifier for the fixed note.
-            auto_reinvest (bool): Whether to enable auto-reinvest.
-
-        Returns:
-            dict: The API response containing updated fixed note details.
-        """
-        method = "PATCH"
-        url = self.base_url + f"fixed-notes/{fixed_note_id}/auto-reinvest"
-        payload = json.dumps({"auto_reinvest": auto_reinvest})
-        return self.get_essential_details(method, url, payload)
-
-    def delete_auto_reinvest(self, fixed_note_id):
-        """
-        Delete the auto-reinvest status for a fixed note.
-
-        Args:
-            fixed_note_id (str): The unique identifier for the fixed note.
+            **kwargs: Fields to update (e.g., auto_reinvest).
 
         Returns:
             dict: The API response.
         """
-        method = "DELETE"
-        url = self.base_url + f"fixed-notes/{fixed_note_id}/auto-reinvest"
-        return self.get_essential_details(method, url)
+        method = "PATCH"
+        url = self.base_url + f"fixed-notes/{fixed_note_id}"
+        payload = json.dumps(kwargs)
+        return self.get_essential_details(method, url, payload)
