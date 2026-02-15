@@ -22,6 +22,3 @@ def test_can_get_withdrawal(mock_get_essential_details, api_session):
         "GET",
         f"{api_session.base_url}/api/{api_session.api_version}/withdrawals/fake-w-id",
     )
-
-
-
