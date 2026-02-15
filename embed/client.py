@@ -3,15 +3,21 @@ import os
 from embed.errors import CredentialsError
 from embed.resources.account import Account
 from embed.resources.asset import Asset
+from embed.resources.deposit import Deposit
 from embed.resources.index import Index
+from embed.resources.integrations import Integration
 from embed.resources.investment import Investment
 from embed.resources.price import Price
 from embed.resources.saving import Saving
+from embed.resources.flexible_savings import FlexibleSaving
+from embed.resources.fixed_notes import FixedNote
 from embed.resources.settlement import Settlement
 from embed.resources.stock import Stock
 from embed.resources.stock_portfolio import StockPortfolio
 from embed.resources.trade import Trade
 from embed.resources.transaction import Transaction
+from embed.resources.withdrawal import Withdrawal
+from embed.resources.withdrawal_intents import WithdrawalIntent
 from embed.resources.misc import Misc
 from embed.resources.wallet import Wallet
 from embed.common import APISession
@@ -61,14 +67,20 @@ class Client(object):
 
         self._accounts = Account(self._session)
         self._assets = Asset(self._session)
+        self._deposits = Deposit(self._session)
         self._investments = Investment(self._session)
         self._indexes = Index(self._session)
+        self._integrations = Integration(self._session)
         self._savings = Saving(self._session)
+        self._flexible_savings = FlexibleSaving(self._session)
+        self._fixed_notes = FixedNote(self._session)
         self._settlements = Settlement(self._session)
         self._stocks = Stock(self._session)
         self._stock_portfolios = StockPortfolio(self._session)
         self._trades = Trade(self._session)
         self._transactions = Transaction(self._session)
+        self._withdrawals = Withdrawal(self._session)
+        self._withdrawal_intents = WithdrawalIntent(self._session)
         self._prices = Price(self._session)
         self._wallets = Wallet(self._session)
         self._misc = Misc(self._session)
@@ -86,6 +98,10 @@ class Client(object):
         return self._assets
 
     @property
+    def deposits(self):
+        return self._deposits
+
+    @property
     def investments(self):
         return self._investments
 
@@ -94,8 +110,20 @@ class Client(object):
         return self._indexes
 
     @property
+    def integrations(self):
+        return self._integrations
+
+    @property
     def savings(self):
         return self._savings
+
+    @property
+    def flexible_savings(self):
+        return self._flexible_savings
+
+    @property
+    def fixed_notes(self):
+        return self._fixed_notes
 
     @property
     def settlements(self):
@@ -116,6 +144,14 @@ class Client(object):
     @property
     def transactions(self):
         return self._transactions
+
+    @property
+    def withdrawals(self):
+        return self._withdrawals
+
+    @property
+    def withdrawal_intents(self):
+        return self._withdrawal_intents
 
     @property
     def prices(self):

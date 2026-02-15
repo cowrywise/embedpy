@@ -92,6 +92,9 @@ investment = client.investment.create_investment(
 | `create_wallet(account_id=None, currency_code=None)`  | `POST /wallets` |
 | `transfer(wallet_id=None, product_code=None, amount=None)`  | `POST /wallets/:wallet_id/transfer` |
 | `get_wallet(wallet_id)`  | `GET /wallets/:wallet_id` |
+| `list_flexible_savings(**kwargs)` | `GET /flexible-savings` |
+| `create_fixed_note(**kwargs)` | `POST /fixed-notes` |
+| `list_withdrawals(**kwargs)` | `GET /withdrawals` |
 
 Check the [API reference](https://developers.cowrywise.com/reference) document for all resources and their respective endpoints.
 
