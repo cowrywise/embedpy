@@ -84,3 +84,26 @@ def test_can_rollover_fixed_note(mock_get_essential_details, api_session):
         f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes/fake-fn-id/rollover",
         json.dumps({"tenor_in_months": 3}),
     )
+
+
+@patch("embed.common.APIResponse.get_essential_details")
+def test_can_update_auto_reinvest(mock_get_essential_details, api_session):
+    fn = FixedNote(api_session)
+    mock_get_essential_details.return_value = MagicMock()
+    fn.update_auto_reinvest("fake-fn-id", auto_reinvest=True)
+    fn.get_essential_details.assert_called_with(
+        "PATCH",
+        f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes/fake-fn-id/auto-reinvest",
+        json.dumps({"auto_reinvest": True}),
+    )
+
+
+@patch("embed.common.APIResponse.get_essential_details")
+def test_can_delete_auto_reinvest(mock_get_essential_details, api_session):
+    fn = FixedNote(api_session)
+    mock_get_essential_details.return_value = MagicMock()
+    fn.delete_auto_reinvest("fake-fn-id")
+    fn.get_essential_details.assert_called_with(
+        "DELETE",
+        f"{api_session.base_url}/api/{api_session.api_version}/fixed-notes/fake-fn-id/auto-reinvest",
+    )
