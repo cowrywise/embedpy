@@ -101,7 +101,6 @@ class Client(object):
     def deposits(self):
         return self._deposits
 
-
     @property
     def investments(self):
         return self._investments
@@ -153,7 +152,6 @@ class Client(object):
     @property
     def withdrawal_intents(self):
         return self._withdrawal_intents
-
 
     @property
     def prices(self):
